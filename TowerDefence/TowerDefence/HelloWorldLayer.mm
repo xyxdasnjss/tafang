@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 
 #import "PhysicsSprite.h"
+#import "TutorialScene.h"
 
 enum {
 	kTagParentNode = 1,
@@ -76,7 +77,7 @@ enum {
 		
 		[self addNewSpriteAtPosition:ccp(s.width/2, s.height/2)];
 		
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Tap screen" fontName:@"Marker Felt" fontSize:32];
+		CCLabelTTF *label = [CCLabelTTF labelWithString:@"TowerDefence by XYXD" fontName:@"Marker Felt" fontSize:32];
 		[self addChild:label z:0];
 		[label setColor:ccc3(0,0,255)];
 		label.position = ccp( s.width/2, s.height-50);
@@ -104,35 +105,35 @@ enum {
 	
 	// Reset Button
 	CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
+        
+        
+        
 		[[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
 	}];
 	
 	// Achievement Menu Item using blocks
-	CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"Achievements" block:^(id sender) {
+	CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"开始" block:^(id sender) {
+        
+        DataModel *m = [DataModel getModel];
+        // Run the intro Scene
+        CCScene *scene = [Tutorial scene];
+        Tutorial *layer = (Tutorial *) [scene.children objectAtIndex:0];
+        
+        UIPanGestureRecognizer *gestureRecognizer = [[[UIPanGestureRecognizer alloc] initWithTarget:layer action:@selector(handlePanFrom:)] autorelease];
+        [[CCDirector sharedDirector].view addGestureRecognizer:gestureRecognizer];
+        m._gestureRecognizer = gestureRecognizer;
+        
+        
 		
+		[[CCDirector sharedDirector] replaceScene:scene];
 		
-		GKAchievementViewController *achivementViewController = [[GKAchievementViewController alloc] init];
-		achivementViewController.achievementDelegate = self;
-		
-		AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-		
-		[[app navController] presentModalViewController:achivementViewController animated:YES];
-		
-		[achivementViewController release];
 	}];
 	
 	// Leaderboard Menu Item using blocks
-	CCMenuItem *itemLeaderboard = [CCMenuItemFont itemWithString:@"Leaderboard" block:^(id sender) {
+	CCMenuItem *itemLeaderboard = [CCMenuItemFont itemWithString:@"结束" block:^(id sender) {
 		
 		
-		GKLeaderboardViewController *leaderboardViewController = [[GKLeaderboardViewController alloc] init];
-		leaderboardViewController.leaderboardDelegate = self;
 		
-		AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-		
-		[[app navController] presentModalViewController:leaderboardViewController animated:YES];
-		
-		[leaderboardViewController release];
 	}];
 	
 	CCMenu *menu = [CCMenu menuWithItems:itemAchievement, itemLeaderboard, reset, nil];
