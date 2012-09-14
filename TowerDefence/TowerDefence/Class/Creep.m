@@ -43,7 +43,7 @@
 	
 	DataModel *m = [DataModel getModel];
 	int lastWaypoint = m._waypoints.count;
-//    NSLog(@"%d",lastWaypoint);
+//    DLog(@"%d",lastWaypoint);
     
 	self.curWaypoint++;
 	

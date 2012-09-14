@@ -103,40 +103,41 @@ enum {
 	// Default font size will be 22 points.
 	[CCMenuItemFont setFontSize:22];
 	
-	// Reset Button
-	CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
-        
-        
-        
-		[[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
-	}];
+//	// Reset Button
+//	CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
+//        
+//        
+//        
+//		[[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
+//	}];
 	
 	// Achievement Menu Item using blocks
 	CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"开始" block:^(id sender) {
         
         DataModel *m = [DataModel getModel];
-        // Run the intro Scene
+//        // Run the intro Scene
         CCScene *scene = [Tutorial scene];
+        
         Tutorial *layer = (Tutorial *) [scene.children objectAtIndex:0];
         
         UIPanGestureRecognizer *gestureRecognizer = [[[UIPanGestureRecognizer alloc] initWithTarget:layer action:@selector(handlePanFrom:)] autorelease];
+//        AppController  *appDelegate = (AppController*)[[UIApplication sharedApplication] delegate];
+//        [appDelegate.navController.view addGestureRecognizer:gestureRecognizer];
         [[CCDirector sharedDirector].view addGestureRecognizer:gestureRecognizer];
         m._gestureRecognizer = gestureRecognizer;
         
         
+        NSLog(@"%f,%f,%f,%f",[CCDirector sharedDirector].view.frame.size.height,[CCDirector sharedDirector].view.frame.size.width,[CCDirector sharedDirector].view.frame.origin.x,[CCDirector sharedDirector].view.frame.origin.y);
+
+
 		
 		[[CCDirector sharedDirector] replaceScene:scene];
 		
 	}];
+    
+
 	
-	// Leaderboard Menu Item using blocks
-	CCMenuItem *itemLeaderboard = [CCMenuItemFont itemWithString:@"结束" block:^(id sender) {
-		
-		
-		
-	}];
-	
-	CCMenu *menu = [CCMenu menuWithItems:itemAchievement, itemLeaderboard, reset, nil];
+	CCMenu *menu = [CCMenu menuWithItems:itemAchievement, nil];
 	
 	[menu alignItemsVertically];
 	
@@ -275,13 +276,13 @@ enum {
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	//Add a new body/atlas sprite at the touched location
-	for( UITouch *touch in touches ) {
-		CGPoint location = [touch locationInView: [touch view]];
-		
-		location = [[CCDirector sharedDirector] convertToGL: location];
-		
-		[self addNewSpriteAtPosition: location];
-	}
+//	for( UITouch *touch in touches ) {
+//		CGPoint location = [touch locationInView: [touch view]];
+//		
+//		location = [[CCDirector sharedDirector] convertToGL: location];
+//		
+//		[self addNewSpriteAtPosition: location];
+//	}
 }
 
 #pragma mark GameKit delegate

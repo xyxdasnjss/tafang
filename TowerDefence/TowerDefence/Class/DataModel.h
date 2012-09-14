@@ -36,4 +36,7 @@
 @property (nonatomic, retain) UIPanGestureRecognizer *_gestureRecognizer;;
 + (DataModel*)getModel;
 
+
+
+
 @end

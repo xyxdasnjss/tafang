@@ -10,7 +10,7 @@
 
 #import "AppDelegate.h"
 #import "IntroLayer.h"
-
+#import "TutorialScene.h"
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_;
@@ -45,6 +45,7 @@
 	
 	// attach the openglView to the director
 	[director_ setView:glView];
+
 	
 	// for rotation and other messages
 	[director_ setDelegate:self];
@@ -76,19 +77,26 @@
 	[CCTexture2D PVRImagesHavePremultipliedAlpha:YES];
 	
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
-	[director_ pushScene: [IntroLayer scene]]; 
+	[director_ pushScene: [IntroLayer scene]];
 	
 	
+
+    
 	// Create a Navigation Controller with the Director
 	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
 	navController_.navigationBarHidden = YES;
-	
+//	[navController_ setView:glView];
 	// set the Navigation Controller as the root view controller
 //	[window_ addSubview:navController_.view];	// Generates flicker.
+    
+        
+    
 	[window_ setRootViewController:navController_];
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
+    
+
 	
 	return YES;
 }
@@ -143,6 +151,10 @@
 {
 	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
 }
+
+
+
+
 
 - (void) dealloc
 {

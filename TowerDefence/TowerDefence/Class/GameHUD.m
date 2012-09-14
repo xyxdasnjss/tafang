@@ -59,8 +59,9 @@ static GameHUD *_sharedHUD = nil;
             [self addChild:sprite];
             [movableSprites addObject:sprite];
         }
-		[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+		[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 	}
+   
 	return self;
 }
 
@@ -145,7 +146,7 @@ static GameHUD *_sharedHUD = nil;
 }
 - (void) registerWithTouchDispatcher
 {
-	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 }
 
 // on "dealloc" you need to release all your retained objects

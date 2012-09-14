@@ -11,6 +11,14 @@
 
 #import "DataModel.h"
 
+
+
+enum {
+	kTagTileMap = 1,
+
+};
+
+
 // Tutorial implementation
 @implementation Tutorial
 
@@ -28,6 +36,10 @@
 	
 	// add layer as a child to scene
 	[scene addChild: layer z:1];
+    
+    
+    
+    
 	
 	GameHUD * myGameHUD = [GameHUD sharedHUD];
 	[scene addChild:myGameHUD z:2];
@@ -43,11 +55,28 @@
 // on "init" you need to initialize your instance
 -(id) init {
     if((self = [super init])) {
+        
+//        self.isTouchEnabled = YES;
+        
+        self.scale = .5;
+
 		self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"TileMap.tmx"];
+        
+        CGSize ms = [self.tileMap mapSize];
+		CGSize ts = [self.tileMap tileSize];
+        
+        DLog(@"%.2f,%.2f",ms.height,ms.width);
+        DLog(@"%.2f,%.2f",ts.height,ts.width);
+        
+        CGSize s = self.tileMap.contentSize;
+		DLog(@"ContentSize: %f, %f", s.width,s.height);
+        
         self.background = [_tileMap layerNamed:@"Background"];
-		self.background.anchorPoint = ccp(0, 0);
-		[self addChild:_tileMap z:0];
-		
+//		self.background.anchorPoint = ccp(0, 0);
+		[self addChild:_tileMap z:-1 tag:kTagTileMap];
+
+
+        
 		[self addWaypoint];
 		[self addWaves];
 		
@@ -56,8 +85,8 @@
 		[self schedule:@selector(gameLogic:) interval:1.0];
 		
 		self.currentLevel = 0;
-		
-		self.position = ccp(-228, -122);
+
+//		self.position = ccp(-228, -122);
 		
 		gameHUD = [GameHUD sharedHUD];
 		
@@ -117,6 +146,8 @@
 		wayPointCounter++;
 	}
 	
+//    DLog(@"%@",[m._waypoints description]);
+    
 	NSAssert([m._waypoints count] > 0, @"Waypoint objects missing");
 	wp = nil;
 }
@@ -156,7 +187,7 @@
 	NSString *type = [props valueForKey:@"buildable"];
 	
 	
-	NSLog(@"Buildable: %@", type);
+	DLog(@"Buildable: %@", type);
 	if([type isEqualToString: @"1"]) {
 		target = [MachineGunTower tower];
 		target.position = ccp((towerLoc.x * 32) + 16, self.tileMap.contentSize.height - (towerLoc.y * 32) - 16);
@@ -166,7 +197,7 @@
 		[m._towers addObject:target];
 		
 	} else {
-		NSLog(@"Tile Not Buildable");
+		DLog(@"Tile Not Buildable");
 	}
 	
 }
@@ -220,7 +251,7 @@
 
 -(void)gameLogic:(ccTime)dt {
 	
-	DataModel *m = [DataModel getModel];
+//	DataModel *m = [DataModel getModel];
 	Wave * wave = [self getCurrentWave];
 	static double lastTimeTargetAdded = 0;
     double now = [[NSDate date] timeIntervalSince1970];
@@ -275,6 +306,42 @@
         
     }
 }
+
+
+
+-(void) registerWithTouchDispatcher
+{
+	CCDirector *director = [CCDirector sharedDirector];
+	[[director touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+}
+
+//-(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//	return YES;
+//}
+//
+//-(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//}
+//
+//-(void) ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//}
+//
+//-(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//	CGPoint touchLocation = [touch locationInView: [touch view]];
+//	CGPoint prevLocation = [touch previousLocationInView: [touch view]];
+//    
+//	touchLocation = [[CCDirector sharedDirector] convertToGL: touchLocation];
+//	prevLocation = [[CCDirector sharedDirector] convertToGL: prevLocation];
+//    
+//	CGPoint diff = ccpSub(touchLocation,prevLocation);
+//    
+//	CCNode *node = [self getChildByTag:kTagTileMap];
+//	CGPoint currentPos = [node position];
+//	[node setPosition: ccpAdd(currentPos, diff)];
+//}
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
