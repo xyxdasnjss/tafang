@@ -9,6 +9,8 @@
 #import "GameHUD.h"
 #import "DataModel.h"
 
+#define WINSCALE ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] == YES && [[UIScreen mainScreen] scale] == 2.0f)
+
 @implementation GameHUD
 
 static GameHUD *_sharedHUD = nil;
@@ -55,7 +57,10 @@ static GameHUD *_sharedHUD = nil;
             NSString *image = [images objectAtIndex:i];
             CCSprite *sprite = [CCSprite spriteWithFile:image];
             float offsetFraction = ((float)(i+1))/(images.count+1);
-            sprite.position = ccp(winSize.width*offsetFraction, 35);
+            
+            sprite.position = ccp(winSize.width*offsetFraction, WINSCALE == 1? 35 *.5 :35);
+           
+            
             [self addChild:sprite];
             [movableSprites addObject:sprite];
         }
@@ -116,6 +121,8 @@ static GameHUD *_sharedHUD = nil;
 	}
 }
 
+ 
+
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {  
 	CGPoint touchLocation = [self convertTouchToNodeSpace:touch];	
 	DataModel *m = [DataModel getModel];
@@ -125,6 +132,12 @@ static GameHUD *_sharedHUD = nil;
 									   background.position.y, 
 									   background.contentSize.width, 
 									   background.contentSize.height);
+        
+        
+        DLog(@"%f,%f,%f,%f",background.position.x,
+             background.position.y,
+             background.contentSize.width,
+             background.contentSize.height);
 		
 		if (!CGRectContainsPoint(backgroundRect, touchLocation)) {
 			CGPoint touchLocationInGameLayer = [m._gameLayer convertTouchToNodeSpace:touch];
@@ -133,7 +146,16 @@ static GameHUD *_sharedHUD = nil;
 			newSprite.position = touchLocationInGameLayer;
 			[m._gameLayer addChild:newSprite];
 			*/
-			[m._gameLayer addTower: touchLocationInGameLayer];
+//            if (WINSCALE == 1) {
+//                touchLocationInGameLayer.x = touchLocationInGameLayer.x * .5;
+//                touchLocationInGameLayer.y = touchLocationInGameLayer.y * .5;
+//                [m._gameLayer addTower: touchLocationInGameLayer];
+//            }else{
+            
+            DLog(@"%f,%f",touchLocationInGameLayer.x,touchLocationInGameLayer.y);
+                [m._gameLayer addTower: touchLocationInGameLayer];
+//            }
+			
 		}
 		
 		[self removeChild:selSprite cleanup:YES];

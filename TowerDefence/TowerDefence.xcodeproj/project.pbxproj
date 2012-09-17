@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13BF0A3C16072620007F7B1A /* Projectile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BF0A3B16072620007F7B1A /* Projectile.m */; };
 		13E77C151601ABD1006450BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C141601ABD1006450BE /* QuartzCore.framework */; };
 		13E77C171601ABD1006450BE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C161601ABD1006450BE /* OpenGLES.framework */; };
 		13E77C191601ABD1006450BE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C181601ABD1006450BE /* OpenAL.framework */; };
@@ -200,6 +201,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13BF0A3A16072620007F7B1A /* Projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projectile.h; sourceTree = "<group>"; };
+		13BF0A3B16072620007F7B1A /* Projectile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Projectile.m; sourceTree = "<group>"; };
 		13E77C101601ABD1006450BE /* TowerDefence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E77C141601ABD1006450BE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		13E77C161601ABD1006450BE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1202,6 +1205,8 @@
 				13E77E901601D5F4006450BE /* GameHUD.m */,
 				13E77E921601D626006450BE /* Tower.h */,
 				13E77E931601D626006450BE /* Tower.m */,
+				13BF0A3A16072620007F7B1A /* Projectile.h */,
+				13BF0A3B16072620007F7B1A /* Projectile.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -1465,6 +1470,7 @@
 				13E77E671601B4F3006450BE /* Wave.m in Sources */,
 				13E77E911601D5F6006450BE /* GameHUD.m in Sources */,
 				13E77E941601D627006450BE /* Tower.m in Sources */,
+				13BF0A3C16072620007F7B1A /* Projectile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

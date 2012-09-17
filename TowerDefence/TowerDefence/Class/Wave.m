@@ -11,8 +11,10 @@
 @implementation Wave
 
 @synthesize spawnRate = _spawnRate;
-@synthesize totalCreeps = _totalCreeps;
+@synthesize redCreeps = _redCreeps;
+@synthesize greenCreeps = _greenCreeps;
 @synthesize creepType = _creepType;
+@synthesize totalcreeps = _totalCreeps;
 
 -(id) init
 {
@@ -32,6 +34,20 @@
 		_creepType = creep;
 		_spawnRate = spawnrate;
 		_totalCreeps = totalcreeps;
+	}
+	return self;
+}
+
+- (id) initWithCreep:(Creep *)creep SpawnRate:(float)spawnrate RedCreeps:(int)redcreeps GreenCreeps: (int)greencreeps
+{
+	NSAssert(creep!=nil, @"Invalid creep for wave.");
+    
+	if( (self = [self init]) )
+	{
+		_creepType = creep;
+		_spawnRate = spawnrate;
+		_redCreeps = redcreeps;
+        _greenCreeps = greencreeps;
 	}
 	return self;
 }

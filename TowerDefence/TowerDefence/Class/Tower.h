@@ -16,10 +16,14 @@
 	
 	CCSprite * selSpriteRange;
     Creep * _target;
+    
+    NSMutableArray *_projectiles;
+	CCSprite *_nextProjectile;
 }
 
 @property (nonatomic, assign) int range;
 @property (nonatomic, retain) Creep * target;
+@property (nonatomic, retain) CCSprite * nextProjectile;
 
 - (Creep *)getClosestTarget;
 
@@ -32,4 +36,6 @@
 + (id)tower;
 - (void)towerLogic:(ccTime)dt;
 - (void)setClosestTarget:(Creep *)closestTarget;
+- (void)creepMoveFinished:(id)sender;
+- (void)finishFiring;
 @end

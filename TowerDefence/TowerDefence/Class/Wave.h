@@ -14,12 +14,19 @@
 	float _spawnRate;
 	int _totalCreeps;
 	Creep * _creepType;
+    
+    int _redCreeps;
+    int _greenCreeps;
 }
 
 @property (nonatomic) float spawnRate;
 @property (nonatomic) int totalCreeps;
+@property (nonatomic) int redCreeps;
+@property (nonatomic) int greenCreeps;
 @property (nonatomic, retain) Creep *creepType;
 
 - (id)initWithCreep:(Creep *)creep SpawnRate:(float)spawnrate TotalCreeps:(int)totalcreeps;
+- (id)initWithCreep:(Creep *)creep SpawnRate:(float)spawnrate RedCreeps:(int)redcreeps GreenCreeps:(int)greencreeps;
+
 
 @end

@@ -8,10 +8,13 @@
 
 #import "Tower.h"
 
+#import "Projectile.h"
+
 @implementation Tower
 
 @synthesize range = _range;
 @synthesize target = _target;
+@synthesize nextProjectile = _nextProjectile;
 
 - (Creep *)getClosestTarget {
 	Creep *closestCreep = nil;
@@ -82,8 +85,11 @@
 		float rotateSpeed = 0.5 / M_PI; // 1/2 second to roate 180 degrees
 		float rotateDuration = fabs(shootAngle * rotateSpeed);
 		
-		[self runAction:[CCSequence actions:
+
+        
+        [self runAction:[CCSequence actions:
                          [CCRotateTo actionWithDuration:rotateDuration angle:cocosAngle],
+                         [CCCallFunc actionWithTarget:self selector:@selector(finishFiring)],
                          nil]];
 	}
 }
@@ -98,5 +104,33 @@
 	[m._projectiles removeObject:sprite];
 	
 }
+
+- (void)finishFiring {
+	
+	DataModel *m = [DataModel getModel];
+	
+	self.nextProjectile = [Projectile projectile];
+	self.nextProjectile.position = self.position;
+	
+    [self.parent addChild:self.nextProjectile z:1];
+    [m._projectiles addObject:self.nextProjectile];
+    
+	ccTime delta = 1.0;
+	CGPoint shootVector = ccpSub(self.target.position, self.position);
+	CGPoint normalizedShootVector = ccpNormalize(shootVector);
+	CGPoint overshotVector = ccpMult(normalizedShootVector, 320);
+	CGPoint offscreenPoint = ccpAdd(self.position, overshotVector);
+	
+	[self.nextProjectile runAction:[CCSequence actions:
+                                    [CCMoveTo actionWithDuration:delta position:offscreenPoint],
+                                    [CCCallFuncN actionWithTarget:self selector:@selector(creepMoveFinished:)],
+                                    nil]];
+	
+	self.nextProjectile.tag = 2;		
+	
+    self.nextProjectile = nil;
+    
+}
+
 
 @end

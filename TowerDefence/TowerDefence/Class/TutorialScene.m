@@ -10,7 +10,7 @@
 #import "GameHUD.h"
 
 #import "DataModel.h"
-
+#import "Projectile.h"
 
 
 enum {
@@ -52,28 +52,35 @@ enum {
 	return scene;
 }
 
+
+
 // on "init" you need to initialize your instance
 -(id) init {
     if((self = [super init])) {
         
 //        self.isTouchEnabled = YES;
         
-        self.scale = .5;
+//        DLog(@"%d",WINSCALE);//1
+        
+//        self.scale = .5;
 
 		self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"TileMap.tmx"];
         
         CGSize ms = [self.tileMap mapSize];
 		CGSize ts = [self.tileMap tileSize];
         
-        DLog(@"%.2f,%.2f",ms.height,ms.width);
-        DLog(@"%.2f,%.2f",ts.height,ts.width);
+        DLog(@"mapSize:%.2f,%.2f",ms.height,ms.width);
+        DLog(@"tileSize:%.2f,%.2f",ts.height,ts.width);
         
         CGSize s = self.tileMap.contentSize;
 		DLog(@"ContentSize: %f, %f", s.width,s.height);
         
+            CGSize size = [[CCDirector sharedDirector] winSize];
+        DLog(@"directorSize:%f, %f",size.width,size.height);
+        
         self.background = [_tileMap layerNamed:@"Background"];
 //		self.background.anchorPoint = ccp(0, 0);
-		[self addChild:_tileMap z:-1 tag:kTagTileMap];
+		[self addChild:_tileMap z:0 tag:kTagTileMap];
 
 
         
@@ -102,6 +109,18 @@ enum {
 	[m._waves addObject:wave];
 	wave = nil;
 	wave = [[Wave alloc] initWithCreep:[StrongGreenCreep creep] SpawnRate:1.0 TotalCreeps:5];
+	[m._waves addObject:wave];
+	wave = nil;
+    wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:0.7 TotalCreeps:20];
+	[m._waves addObject:wave];
+	wave = nil;
+    wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:0.5 TotalCreeps:50];
+	[m._waves addObject:wave];
+	wave = nil;
+	wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:0.3 TotalCreeps:70];
+	[m._waves addObject:wave];
+    wave = nil;
+    wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:0.2 TotalCreeps:100];
 	[m._waves addObject:wave];
 	wave = nil;
 }
@@ -139,6 +158,25 @@ enum {
 	while ((wayPoint = [objects objectNamed:[NSString stringWithFormat:@"Waypoint%d", wayPointCounter]])) {
 		int x = [[wayPoint valueForKey:@"x"] intValue];
 		int y = [[wayPoint valueForKey:@"y"] intValue];
+
+        
+        if (WINSCALE == 1) {
+            x = x * .5;
+            y = y * .5;
+        }
+        
+    //        if([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)]&&([UIScreen mainScreen].scale ==2.0))
+    //        {
+    //            // Retina display
+    //        }else
+    //        {
+    //            // non-Retina display
+    //        }
+            
+
+
+        
+        NSLog(@"wayPoint:%d,%d",x,y);
 		
 		wp = [WayPoint node];
 		wp.position = ccp(x, y);
@@ -154,10 +192,15 @@ enum {
 
 - (CGPoint) tileCoordForPosition:(CGPoint) position
 {
-	int x = position.x / self.tileMap.tileSize.width;
-	int y = ((self.tileMap.mapSize.height * self.tileMap.tileSize.height) - position.y) / self.tileMap.tileSize.height;
-	
-	return ccp(x,y);
+    CGSize tileSize = CGSizeMake(self.tileMap.tileSize.width,self.tileMap.tileSize.height);
+    if (WINSCALE == 1) {
+        tileSize = CGSizeMake(self.tileMap.tileSize.width/2,self.tileMap.tileSize.height/2);
+    }
+    
+    
+    int x = position.x / tileSize.width;
+    int y = ((self.tileMap.mapSize.height * tileSize.height) - position.y) / tileSize.height;
+    return ccp(x, y);
 }
 
 - (BOOL) canBuildOnTilePosition:(CGPoint) pos
@@ -181,6 +224,8 @@ enum {
 	Tower *target = nil;
 	
 	CGPoint towerLoc = [self tileCoordForPosition: pos];
+    
+    DLog(@"%f,%f",towerLoc.x,towerLoc.y);
 	
 	int tileGid = [self.background tileGIDAt:towerLoc];
 	NSDictionary *props = [self.tileMap propertiesForGID:tileGid];
@@ -188,9 +233,18 @@ enum {
 	
 	
 	DLog(@"Buildable: %@", type);
+    DLog(@"self.tileMap.contentSize.height: %f", self.tileMap.contentSize.height);
 	if([type isEqualToString: @"1"]) {
 		target = [MachineGunTower tower];
-		target.position = ccp((towerLoc.x * 32) + 16, self.tileMap.contentSize.height - (towerLoc.y * 32) - 16);
+        if (WINSCALE == 1) {
+            target.position = ccp((towerLoc.x * 16) + 8, self.tileMap.contentSize.height - (towerLoc.y * 16) - 8);
+        }else{
+            target.position = ccp((towerLoc.x * 32) + 16, self.tileMap.contentSize.height - (towerLoc.y * 32) - 16);
+        }
+		
+        
+         DLog(@"%f,%f",target.position.x,target.position.y);
+        
 		[self addChild:target z:1];
 		
 		target.tag = 1;
@@ -221,6 +275,9 @@ enum {
 	
 	WayPoint *waypoint = [target getCurrentWaypoint ];
 	target.position = waypoint.position;
+    
+//    NSLog(@"target.position:%f,%f",target.position.x,target.position.y);
+    
 	waypoint = [target getNextWaypoint ];
 	
 	[self addChild:target z:1];
@@ -264,6 +321,61 @@ enum {
 
 - (void)update:(ccTime)dt {
     
+    DataModel *m = [DataModel getModel];
+	NSMutableArray *projectilesToDelete = [[NSMutableArray alloc] init];
+    
+	for (Projectile *projectile in m._projectiles) {
+		
+		CGRect projectileRect = CGRectMake(projectile.position.x - (projectile.contentSize.width/2),
+										   projectile.position.y - (projectile.contentSize.height/2),
+										   projectile.contentSize.width,
+										   projectile.contentSize.height);
+        
+		NSMutableArray *targetsToDelete = [[NSMutableArray alloc] init];
+		
+		for (CCSprite *target in m._targets) {
+			CGRect targetRect = CGRectMake(target.position.x - (target.contentSize.width/2),
+										   target.position.y - (target.contentSize.height/2),
+										   target.contentSize.width,
+										   target.contentSize.height);
+            
+			if (CGRectIntersectsRect(projectileRect, targetRect)) {
+                
+				[projectilesToDelete addObject:projectile];
+				
+                Creep *creep = (Creep *)target;
+                creep.hp--;
+				
+                if (creep.hp <= 0) {
+                    [targetsToDelete addObject:target];
+                }
+                break;
+                
+			}
+		}
+		
+		for (CCSprite *target in targetsToDelete) {
+			[m._targets removeObject:target];
+			[self removeChild:target cleanup:YES];
+		}
+		
+		[targetsToDelete release];
+	}
+	
+	for (CCSprite *projectile in projectilesToDelete) {
+		[m._projectiles removeObject:projectile];
+		[self removeChild:projectile cleanup:YES];
+	}
+	[projectilesToDelete release];
+    
+    
+    Wave *wave = [self getCurrentWave];
+    //int alivecount = [m._targets count];
+    if ([m._targets count] ==0 && wave.totalCreeps <= 0) {
+        printf("Get next wave\n");
+        // NSLog(@"Get next wave\n");//use for debugging
+        [self getNextWave];
+    }
 }
 
 
@@ -315,33 +427,7 @@ enum {
 	[[director touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 }
 
-//-(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
-//{
-//	return YES;
-//}
-//
-//-(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
-//{
-//}
-//
-//-(void) ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event
-//{
-//}
-//
-//-(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
-//{
-//	CGPoint touchLocation = [touch locationInView: [touch view]];
-//	CGPoint prevLocation = [touch previousLocationInView: [touch view]];
-//    
-//	touchLocation = [[CCDirector sharedDirector] convertToGL: touchLocation];
-//	prevLocation = [[CCDirector sharedDirector] convertToGL: prevLocation];
-//    
-//	CGPoint diff = ccpSub(touchLocation,prevLocation);
-//    
-//	CCNode *node = [self getChildByTag:kTagTileMap];
-//	CGPoint currentPos = [node position];
-//	[node setPosition: ccpAdd(currentPos, diff)];
-//}
+
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
