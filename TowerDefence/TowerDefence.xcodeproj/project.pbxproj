@@ -8,6 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		13BF0A3C16072620007F7B1A /* Projectile.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BF0A3B16072620007F7B1A /* Projectile.m */; };
+		13D81E691608279300BBF42B /* baseAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D81E681608279300BBF42B /* baseAttributes.m */; };
+		13D81E761608279D00BBF42B /* CannonProjectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6B1608279D00BBF42B /* CannonProjectile.png */; };
+		13D81E771608279D00BBF42B /* CannonTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6C1608279D00BBF42B /* CannonTurret.png */; };
+		13D81E781608279D00BBF42B /* CannonTurretUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6D1608279D00BBF42B /* CannonTurretUpgrade.png */; };
+		13D81E791608279D00BBF42B /* Enemy3.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6E1608279D00BBF42B /* Enemy3.png */; };
+		13D81E7A1608279D00BBF42B /* FreezeTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6F1608279D00BBF42B /* FreezeTurret.png */; };
+		13D81E7B1608279D00BBF42B /* FreezeTurretUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E701608279D00BBF42B /* FreezeTurretUpgrade.png */; };
+		13D81E7C1608279D00BBF42B /* health_bar_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E711608279D00BBF42B /* health_bar_green.png */; };
+		13D81E7D1608279D00BBF42B /* health_bar_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E721608279D00BBF42B /* health_bar_red.png */; };
+		13D81E7E1608279D00BBF42B /* IceProjectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E731608279D00BBF42B /* IceProjectile.png */; };
+		13D81E7F1608279D00BBF42B /* MGTowerUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E741608279D00BBF42B /* MGTowerUpgrade.png */; };
+		13D81E801608279D00BBF42B /* TileMap1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E751608279D00BBF42B /* TileMap1.tmx */; };
 		13E77C151601ABD1006450BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C141601ABD1006450BE /* QuartzCore.framework */; };
 		13E77C171601ABD1006450BE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C161601ABD1006450BE /* OpenGLES.framework */; };
 		13E77C191601ABD1006450BE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C181601ABD1006450BE /* OpenAL.framework */; };
@@ -203,6 +215,19 @@
 /* Begin PBXFileReference section */
 		13BF0A3A16072620007F7B1A /* Projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projectile.h; sourceTree = "<group>"; };
 		13BF0A3B16072620007F7B1A /* Projectile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Projectile.m; sourceTree = "<group>"; };
+		13D81E671608279300BBF42B /* baseAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = baseAttributes.h; sourceTree = "<group>"; };
+		13D81E681608279300BBF42B /* baseAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = baseAttributes.m; sourceTree = "<group>"; };
+		13D81E6B1608279D00BBF42B /* CannonProjectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonProjectile.png; sourceTree = "<group>"; };
+		13D81E6C1608279D00BBF42B /* CannonTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonTurret.png; sourceTree = "<group>"; };
+		13D81E6D1608279D00BBF42B /* CannonTurretUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonTurretUpgrade.png; sourceTree = "<group>"; };
+		13D81E6E1608279D00BBF42B /* Enemy3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy3.png; sourceTree = "<group>"; };
+		13D81E6F1608279D00BBF42B /* FreezeTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreezeTurret.png; sourceTree = "<group>"; };
+		13D81E701608279D00BBF42B /* FreezeTurretUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreezeTurretUpgrade.png; sourceTree = "<group>"; };
+		13D81E711608279D00BBF42B /* health_bar_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = health_bar_green.png; sourceTree = "<group>"; };
+		13D81E721608279D00BBF42B /* health_bar_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = health_bar_red.png; sourceTree = "<group>"; };
+		13D81E731608279D00BBF42B /* IceProjectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IceProjectile.png; sourceTree = "<group>"; };
+		13D81E741608279D00BBF42B /* MGTowerUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MGTowerUpgrade.png; sourceTree = "<group>"; };
+		13D81E751608279D00BBF42B /* TileMap1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TileMap1.tmx; sourceTree = "<group>"; };
 		13E77C101601ABD1006450BE /* TowerDefence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E77C141601ABD1006450BE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		13E77C161601ABD1006450BE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1190,6 +1215,8 @@
 		13E77E581601B3D8006450BE /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				13D81E671608279300BBF42B /* baseAttributes.h */,
+				13D81E681608279300BBF42B /* baseAttributes.m */,
 				13E77E591601B3D8006450BE /* Creep.h */,
 				13E77E5A1601B3D8006450BE /* Creep.m */,
 				13E77E5B1601B3D8006450BE /* DataModel.h */,
@@ -1214,6 +1241,17 @@
 		13E77E6C1601B7B0006450BE /* images */ = {
 			isa = PBXGroup;
 			children = (
+				13D81E6B1608279D00BBF42B /* CannonProjectile.png */,
+				13D81E6C1608279D00BBF42B /* CannonTurret.png */,
+				13D81E6D1608279D00BBF42B /* CannonTurretUpgrade.png */,
+				13D81E6E1608279D00BBF42B /* Enemy3.png */,
+				13D81E6F1608279D00BBF42B /* FreezeTurret.png */,
+				13D81E701608279D00BBF42B /* FreezeTurretUpgrade.png */,
+				13D81E711608279D00BBF42B /* health_bar_green.png */,
+				13D81E721608279D00BBF42B /* health_bar_red.png */,
+				13D81E731608279D00BBF42B /* IceProjectile.png */,
+				13D81E741608279D00BBF42B /* MGTowerUpgrade.png */,
+				13D81E751608279D00BBF42B /* TileMap1.tmx */,
 				13E77E6E1601B7F4006450BE /* Enemy1.png */,
 				13E77E6F1601B7F4006450BE /* Enemy2.png */,
 				13E77E701601B7F4006450BE /* hud.png */,
@@ -1302,6 +1340,17 @@
 				13E77E7D1601B7F4006450BE /* Range.png in Resources */,
 				13E77E7E1601B7F4006450BE /* TileMap.tmx in Resources */,
 				13E77E7F1601B7F4006450BE /* tmw_desert_spacing.png in Resources */,
+				13D81E761608279D00BBF42B /* CannonProjectile.png in Resources */,
+				13D81E771608279D00BBF42B /* CannonTurret.png in Resources */,
+				13D81E781608279D00BBF42B /* CannonTurretUpgrade.png in Resources */,
+				13D81E791608279D00BBF42B /* Enemy3.png in Resources */,
+				13D81E7A1608279D00BBF42B /* FreezeTurret.png in Resources */,
+				13D81E7B1608279D00BBF42B /* FreezeTurretUpgrade.png in Resources */,
+				13D81E7C1608279D00BBF42B /* health_bar_green.png in Resources */,
+				13D81E7D1608279D00BBF42B /* health_bar_red.png in Resources */,
+				13D81E7E1608279D00BBF42B /* IceProjectile.png in Resources */,
+				13D81E7F1608279D00BBF42B /* MGTowerUpgrade.png in Resources */,
+				13D81E801608279D00BBF42B /* TileMap1.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1471,6 +1520,7 @@
 				13E77E911601D5F6006450BE /* GameHUD.m in Sources */,
 				13E77E941601D627006450BE /* Tower.m in Sources */,
 				13BF0A3C16072620007F7B1A /* Projectile.m in Sources */,
+				13D81E691608279300BBF42B /* baseAttributes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

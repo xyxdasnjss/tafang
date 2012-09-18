@@ -8,63 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TowerDefence/Class/GameHUD.m"
-         timestampString = "369557667.74758"
+         timestampString = "369648705.084009"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "115"
-         endingLineNumber = "115"
-         landmarkName = "-ccTouchMoved:withEvent:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "TowerDefence/Class/TutorialScene.m"
-         timestampString = "369566309.923664"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "194"
-         endingLineNumber = "194"
-         landmarkName = "-canBuildOnTilePosition:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "TowerDefence/HelloWorldLayer.mm"
-         timestampString = "369543125.829833"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "132"
-         endingLineNumber = "132"
-         landmarkName = "-createMenu"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "TowerDefence/Class/TutorialScene.m"
-         timestampString = "369543112.087181"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "63"
-         endingLineNumber = "63"
-         landmarkName = "-init"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "TowerDefence/Class/GameHUD.m"
-         timestampString = "369560657.617944"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "137"
-         endingLineNumber = "137"
+         startingLineNumber = "316"
+         endingLineNumber = "316"
          landmarkName = "-ccTouchEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,12 +21,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TowerDefence/Class/TutorialScene.m"
-         timestampString = "369566309.923664"
+         timestampString = "369647061.260241"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "214"
-         endingLineNumber = "214"
-         landmarkName = "-addTower:"
+         startingLineNumber = "229"
+         endingLineNumber = "229"
+         landmarkName = "-addTower:tag:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -7,35 +7,94 @@
 //
 
 #import "cocos2d.h"
-#import "SimpleAudioEngine.h"
-#import "DataModel.h"
 #import "Creep.h"
+#import "SimpleAudioEngine.h"
+#import "Projectile.h"
+#import "DataModel.h"
 
 @interface Tower : CCSprite {
-	int _range;
-	
-	CCSprite * selSpriteRange;
-    Creep * _target;
+    int experience;
+    int lvl;
     
-    NSMutableArray *_projectiles;
+    int lvlup1;
+    int lvlup2;
+    int lvlupCost;
+    bool lvlupReady;
+    
+	int range;
+    int damageMin;
+    int damageRandom;
+    float fireRate;
+    float freezeDur;
+    float splashDist;
+    
+	Creep * _target;
+	CCSprite * selSpriteRange;
+	
+	NSMutableArray *_projectiles;
 	CCSprite *_nextProjectile;
+    
+    BaseAttributes *baseAttributes;
 }
 
+@property (nonatomic, assign) int experience;
+@property (nonatomic, assign) int lvl;
+
+@property (nonatomic, assign) int lvlup1;
+@property (nonatomic, assign) int lvlup2;
+@property (nonatomic, assign) int lvlupCost;
+@property (nonatomic, assign) bool lvlupReady;
+
 @property (nonatomic, assign) int range;
-@property (nonatomic, retain) Creep * target;
+@property (nonatomic, assign) int damageMin;
+@property (nonatomic, assign) int damageRandom;
+@property (nonatomic, assign) float fireRate;
+@property (nonatomic, assign) float freezeDur;
+@property (nonatomic, assign) float splashDist;
+
+
 @property (nonatomic, retain) CCSprite * nextProjectile;
+@property (nonatomic, retain) Creep * target;
 
 - (Creep *)getClosestTarget;
 
 @end
 
 @interface MachineGunTower : Tower {
-
+    
 }
 
 + (id)tower;
-- (void)towerLogic:(ccTime)dt;
+
 - (void)setClosestTarget:(Creep *)closestTarget;
+- (void)towerLogic:(ccTime)dt;
 - (void)creepMoveFinished:(id)sender;
 - (void)finishFiring;
+
+@end
+
+@interface FreezeTower : Tower {
+    
+}
+
++ (id)tower;
+
+- (void)setClosestTarget:(Creep *)closestTarget;
+- (void)towerLogic:(ccTime)dt;
+- (void)creepMoveFinished:(id)sender;
+- (void)finishFiring;
+
+@end
+
+@interface CannonTower : Tower {
+    
+}
+
++ (id)tower;
+
+- (void)setClosestTarget:(Creep *)closestTarget;
+- (void)towerLogic:(ccTime)dt;
+- (void)creepMoveFinished:(id)sender;
+- (void)finishFiring;
+
 @end

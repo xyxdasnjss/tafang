@@ -8,10 +8,16 @@
 
 #import "Creep.h"
 
+#import "baseAttributes.h"
+
 @implementation Creep
 @synthesize hp = _curHp;
 @synthesize moveDuration = _moveDuration;
+@synthesize totalHp = _totalHp;
+
 @synthesize curWaypoint = _curWaypoint;
+@synthesize lastWaypoint = _lastWaypoint;
+@synthesize healthBar = healthBar;
 
 
 
@@ -42,13 +48,28 @@
 - (WayPoint *)getNextWaypoint{
 	
 	DataModel *m = [DataModel getModel];
-	int lastWaypoint = m._waypoints.count;
-//    DLog(@"%d",lastWaypoint);
+
     
 	self.curWaypoint++;
 	
-	if (self.curWaypoint >= lastWaypoint)
-		self.curWaypoint = lastWaypoint - 1;
+	if (self.curWaypoint >= m._waypoints.count){
+        self.curWaypoint--;
+        gameHUD = [GameHUD sharedHUD];
+        
+        if (gameHUD.baseHpPercentage > 0) {
+            [gameHUD updateBaseHp:-10];
+        }
+        
+        Creep *target = (Creep *) self;
+        
+        NSMutableArray *endtargetsToDelete = [[NSMutableArray alloc] init];
+        [endtargetsToDelete addObject:target];
+        for (CCSprite *target in endtargetsToDelete) {
+            [m._targets removeObject:target];
+            [self.parent removeChild:target cleanup:YES];
+        }
+        return NULL;
+    }
 	
 
 	WayPoint *waypoint = (WayPoint *) [m._waypoints objectAtIndex:self.curWaypoint];
@@ -56,22 +77,85 @@
 	return waypoint;
 }
 
+- (WayPoint *)getLastWaypoint{
+	
+	DataModel *m = [DataModel getModel];
+	//int lastWaypoint = m._waypoints.count;
+    
+	self.lastWaypoint = self.curWaypoint -1;
+	
+	WayPoint *waypoint = (WayPoint *) [m._waypoints objectAtIndex:self.lastWaypoint];
+	
+	return waypoint;
+}
+-(void)creepLogic:(ccTime)dt {
+	
+	
+	// Rotate creep to face next waypoint
+	WayPoint *waypoint = [self getCurrentWaypoint ];
+	
+	CGPoint waypointVector = ccpSub(waypoint.position, self.position);
+	CGFloat waypointAngle = ccpToAngle(waypointVector);
+	CGFloat cocosAngle = CC_RADIANS_TO_DEGREES(-1 * waypointAngle);
+	
+	float rotateSpeed = 0.5 / M_PI; // 1/2 second to roate 180 degrees
+	float rotateDuration = fabs(waypointAngle * rotateSpeed);
+	
+	[self runAction:[CCSequence actions:
+					 [CCRotateTo actionWithDuration:rotateDuration angle:cocosAngle],
+					 nil]];
+}
+
+-(void)healthBarLogic:(ccTime)dt {
+    
+    //Update health bar pos and percentage.
+    healthBar.position = ccp(self.position.x, (self.position.y+20));
+    healthBar.percentage = ((float)self.hp/(float)self.totalHp) *100;
+    if (healthBar.percentage <= 0) {
+        [self removeChild:healthBar cleanup:YES];
+    }
+}
+
+- (float) moveDurScale
+{
+    
+    DataModel *m = [DataModel getModel];
+    
+    WayPoint *waypoint0 = (WayPoint *) [m._waypoints objectAtIndex:0];
+    WayPoint *waypoint1 = (WayPoint *) [m._waypoints objectAtIndex:1];
+    firstDistance = ccpDistance(waypoint0.position, waypoint1.position);
+    
+    WayPoint *waypoint2 = (WayPoint *) [m._waypoints objectAtIndex:(self.curWaypoint-1)];
+    WayPoint *waypoint3 = (WayPoint *) [m._waypoints objectAtIndex:(self.curWaypoint)];
+    float thisDistance = ccpDistance(waypoint2.position, waypoint3.position);
+    
+    float moveScale = thisDistance/firstDistance;
+    
+    return (self.moveDuration * moveScale);
+}
 
 @end
 
 @implementation FastRedCreep
 
 + (id)creep {
+    
     FastRedCreep *creep = nil;
     if ((creep = [[[super alloc] initWithFile:@"Enemy1.png"] autorelease])) {
-        creep.hp = 10;
-        creep.moveDuration = 4;
+        BaseAttributes* baseAttributes = [BaseAttributes sharedAttributes];
+        creep.hp = creep.totalHp = baseAttributes.baseRedCreepHealth;
+        creep.moveDuration = baseAttributes.baseRedCreepMoveDur;
 		creep.curWaypoint = 0;
     }
+	
+	[creep schedule:@selector(creepLogic:) interval:0.2];
+    [creep schedule:@selector(healthBarLogic:)];
+    
+	
     return creep;
 }
 
-@end;
+@end
 
 @implementation StrongGreenCreep
 
@@ -79,12 +163,36 @@
     
     StrongGreenCreep *creep = nil;
     if ((creep = [[[super alloc] initWithFile:@"Enemy2.png"] autorelease])) {
-        creep.hp = 20;
-        creep.moveDuration = 9;
+        BaseAttributes* baseAttributes = [BaseAttributes sharedAttributes];
+        creep.hp = creep.totalHp = baseAttributes.baseGreenCreepHealth;
+        creep.moveDuration = baseAttributes.baseGreenCreepMoveDur;
 		creep.curWaypoint = 0;
     }
-    return creep;
+	
+	[creep schedule:@selector(creepLogic:) interval:0.2];
+    [creep schedule:@selector(healthBarLogic:)];
+    
+	return creep;
 }
 
 @end
 
+@implementation BossBrownCreep
+
++ (id)creep {
+    
+    BossBrownCreep *creep = nil;
+    if ((creep = [[[super alloc] initWithFile:@"Enemy3.png"] autorelease])) {
+        BaseAttributes* baseAttributes = [BaseAttributes sharedAttributes];
+        creep.hp = creep.totalHp = baseAttributes.baseBrownCreepHealth;
+        creep.moveDuration = baseAttributes.baseBrownCreepMoveDur;
+		creep.curWaypoint = 0;
+        
+    }
+    [creep schedule:@selector(creepLogic:) interval:0.2];
+    [creep schedule:@selector(healthBarLogic:)];
+    
+	return creep;
+}
+
+@end
