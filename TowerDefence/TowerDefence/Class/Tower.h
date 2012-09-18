@@ -7,10 +7,11 @@
 //
 
 #import "cocos2d.h"
-#import "Creep.h"
 #import "SimpleAudioEngine.h"
 #import "Projectile.h"
 #import "DataModel.h"
+#import "Creep.h"
+
 
 @interface Tower : CCSprite {
     int experience;
@@ -28,7 +29,9 @@
     float freezeDur;
     float splashDist;
     
-	Creep * _target;
+    Creep *_target; 
+    
+	//Creep * _target;
 	CCSprite * selSpriteRange;
 	
 	NSMutableArray *_projectiles;

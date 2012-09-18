@@ -9,6 +9,7 @@
 #import "cocos2d.h"
 #import "baseAttributes.h"
 
+//#import "PauseLayer.h"
 
 @interface GameHUD : CCLayer {
 	CCSprite * background;
@@ -24,9 +25,13 @@
     CCProgressTimer *healthBar;
     BaseAttributes *baseAttributes;
     
+    int waveCount;
+
 }
 
 @property (nonatomic, assign) int resources;
+@property (nonatomic, assign) int waveCount;
+
 @property (nonatomic, assign) float baseHpPercentage;
 
 
@@ -39,5 +44,7 @@
 -(void) updateWaveCount;
 -(void) newWaveApproaching;
 -(void) newWaveApproachingEnd;
++(void) resetGameHUD;
+-(void) resetGameHUDLayer;
 
 @end

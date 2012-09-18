@@ -5,7 +5,6 @@
 //  Created by xyxd mac on 12-9-13.
 //  Copyright (c) 2012年 XYXD.COM. All rights reserved.
 //
-
 #import "TutorialScene.h"
 #import "GameHUD.h"
 
@@ -17,7 +16,7 @@
 @synthesize tileMap = _tileMap;
 @synthesize background = _background;
 
-int reset = 0;
+bool reset;
 
 @synthesize currentLevel = _currentLevel;
 +(id) scene
@@ -33,6 +32,10 @@ int reset = 0;
 	
 	GameHUD * myGameHUD = [GameHUD sharedHUD];
 	[scene addChild:myGameHUD z:2];
+    
+    CCLayer *menuLayer =[[[MenuLayer alloc]init ]autorelease];
+    [scene addChild:menuLayer z:10];
+    [[CCDirector sharedDirector] pause];
 	
 	DataModel *m = [DataModel getModel];
 	m._gameLayer = layer;
@@ -52,13 +55,13 @@ int reset = 0;
 	wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:1.0 RedCreeps:5 GreenCreeps:0 BrownCreeps:0];
 	[m._waves addObject:wave];
 	wave = nil;
-	wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:1.0 RedCreeps:5 GreenCreeps:5 BrownCreeps:0];
+	wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:1.0 RedCreeps:5 GreenCreeps:3 BrownCreeps:0];
 	[m._waves addObject:wave];
 	wave = nil;
-    wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:0.8 RedCreeps:7 GreenCreeps:8 BrownCreeps:0];
+    wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:0.8 RedCreeps:3 GreenCreeps:7 BrownCreeps:0];
 	[m._waves addObject:wave];
 	wave = nil;
-	wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:1.2 RedCreeps:7 GreenCreeps:14 BrownCreeps:0];
+	wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:1.2 RedCreeps:10 GreenCreeps:10 BrownCreeps:0];
 	[m._waves addObject:wave];
     wave = nil;
     wave = [[Wave alloc] initWithCreep:[FastRedCreep creep] SpawnRate:1.5 RedCreeps:5 GreenCreeps:5 BrownCreeps:2];
@@ -98,19 +101,74 @@ int reset = 0;
 		[self schedule:@selector(gameLogic:) interval:0.2];
         
 		
+		reset = NO;
+        
 		self.currentLevel = 0;
 		
-//		self.position = ccp(-228, -122);
+//		self.position = ccp(-258, -122);
 		
 		gameHUD = [GameHUD sharedHUD];
         baseAttributes = [BaseAttributes sharedAttributes];
-        
-        
 		
     }
     return self;
 }
 
+-(void) loadMenu{
+    CCLayer *menuLayer =[[[MenuLayer alloc]init ]autorelease];
+    [self.parent addChild:menuLayer z:10];
+    [[CCDirector sharedDirector] pause];
+}
+
++(void) resetGame{
+    reset = YES;
+}
+
+-(void) resetLayer{
+    reset = NO;
+    
+    DataModel *m = [DataModel getModel];
+    
+    NSMutableArray *towersToDelete = [[NSMutableArray alloc] init];
+	for (Tower *tower in m._towers) {
+        [towersToDelete addObject:tower];
+        [self removeChild:tower cleanup:YES];
+    }
+    for (Tower *tower in towersToDelete) {
+        [self removeChild:tower cleanup:YES];
+    }
+    [towersToDelete release];
+    
+    for (Creep *target in m._targets) {
+        [m._targets removeObject:target];
+        [self removeChild:target.healthBar cleanup:YES];
+        [self removeChild:target cleanup:YES];
+    }
+    NSMutableArray *projectilesToDelete = [[NSMutableArray alloc] init];
+	for (Projectile *projectile in m._projectiles) {
+        [projectilesToDelete addObject:projectile];
+    }
+    for (Projectile *projectile in projectilesToDelete) {
+        [self removeChild:projectile cleanup:YES];
+    }
+    [projectilesToDelete release];
+    
+    [m._towers removeAllObjects];
+    [m._targets removeAllObjects];
+    [m._projectiles removeAllObjects];
+    [m._waves removeAllObjects];
+    [self addWaves];
+    
+    // Call game logic about every second
+    [self schedule:@selector(update:)];
+    [self schedule:@selector(gameLogic:) interval:0.2];
+    
+    self.currentLevel = 0;
+    
+    self.position = ccp(-258, -122);
+    self.isTouchEnabled = YES;
+    
+}
 
 
 - (Wave *)getCurrentWave{
@@ -124,13 +182,16 @@ int reset = 0;
 - (Wave *)getNextWave{
 	
 	DataModel *m = [DataModel getModel];
-	
+    
+    //    printf("this level %i", self.currentLevel);
+	if (self.currentLevel >= 5){
+        
+        //NSLog(@"you have reached the end of the game!");
+        return NULL;
+    }
+    
 	self.currentLevel++;
 	
-	if (self.currentLevel >= 6){
-        //Implement Game over Scenario here!
-        NSLog(@"you have reached the end of the game!");
-    }
 	
     Wave * wave = (Wave *) [m._waves objectAtIndex:self.currentLevel];
     
@@ -157,12 +218,13 @@ int reset = 0;
 	while ((wayPoint = [objects objectNamed:[NSString stringWithFormat:@"Waypoint%d", wayPointCounter]])) {
 		int x = [[wayPoint valueForKey:@"x"] intValue];
 		int y = [[wayPoint valueForKey:@"y"] intValue];
-        
+		
         if (WINSCALE == 1) {
             x = x * .5;
             y = y * .5;
         }
-		
+        
+        
 		wp = [WayPoint node];
 		wp.position = ccp(x, y);
 		[m._waypoints addObject:wp];
@@ -190,7 +252,7 @@ int reset = 0;
 
 - (BOOL) canBuildOnTilePosition:(CGPoint) pos
 {
-//    pos = ccpAdd(pos, ccp(0, 25));
+    pos = ccpAdd(pos, ccp(0, 20));
 	CGPoint towerLoc = [self tileCoordForPosition: pos];
 	int tileGid = [self.background tileGIDAt:towerLoc];
 	NSDictionary *props = [self.tileMap propertiesForGID:tileGid];
@@ -431,6 +493,10 @@ int reset = 0;
 
 - (void)update:(ccTime)dt {
     
+    if (reset == YES) {
+        [self resetLayer];
+    }
+    
 	DataModel *m = [DataModel getModel];
 	NSMutableArray *projectilesToDelete = [[NSMutableArray alloc] init];
     
@@ -537,8 +603,15 @@ int reset = 0;
     
     Wave *wave = [self getCurrentWave];
     if ([m._targets count] ==0 && wave.redCreeps <= 0 && wave.greenCreeps <= 0 && wave.brownCreeps <= 0) {
-        [self schedule:@selector(waveWait) interval:3.0];
-        [gameHUD newWaveApproaching];
+        if (self.currentLevel == 5) {
+            CCLayerColor *endGameLayer =[[[EndGame alloc]init:YES]autorelease];
+            [self.parent addChild:endGameLayer z:10];
+            [[CCDirector sharedDirector] pause];
+        }
+        else{
+            [self schedule:@selector(waveWait) interval:3.0];
+            [gameHUD newWaveApproaching];
+        }
     }
 }
 

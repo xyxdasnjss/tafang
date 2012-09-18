@@ -36,7 +36,7 @@
 	
 	DataModel *m = [DataModel getModel];
 	
-	for (CCSprite *target in m._targets) {
+	for (CCSprite *target in m._targets) {	
 		Creep *creep = (Creep *)target;
 		double curDistance = ccpDistance(self.position, creep.position);
 		
@@ -61,7 +61,7 @@
 + (id)tower {
 	
     MachineGunTower *tower = nil;
-    if ((tower = [[[super alloc] initWithFile:@"MachineGunTurret.png"] autorelease])) {
+    if ((tower = [[[super alloc] initWithFile:@"MachineGunTurret.png"] autorelease])) {        
         BaseAttributes *baseAttributes = [BaseAttributes sharedAttributes];
         
         tower.damageMin = baseAttributes.baseMGDamage;
@@ -147,12 +147,12 @@
 		CGFloat cocosAngle = CC_RADIANS_TO_DEGREES(-1 * shootAngle);
 		
 		float rotateSpeed = 0.25 / M_PI; // 1/4 second to roate 180 degrees
-		float rotateDuration = fabs(shootAngle * rotateSpeed);
+		float rotateDuration = fabs(shootAngle * rotateSpeed);    
 		
 		[self runAction:[CCSequence actions:
 						 [CCRotateTo actionWithDuration:rotateDuration angle:cocosAngle],
 						 [CCCallFunc actionWithTarget:self selector:@selector(finishFiring)],
-						 nil]];
+						 nil]];		
         
         
         //printf("experience %i", self.experience);
@@ -192,7 +192,7 @@
                                         [CCCallFuncN actionWithTarget:self selector:@selector(creepMoveFinished:)],
                                         nil]];
         
-        self.nextProjectile.tag = 1;
+        self.nextProjectile.tag = 1;		
         
         self.nextProjectile = nil;
     }
@@ -293,12 +293,12 @@
 		CGFloat cocosAngle = CC_RADIANS_TO_DEGREES(-1 * shootAngle);
 		
 		float rotateSpeed = 0.5 / M_PI; // 1/2 second to roate 180 degrees
-		float rotateDuration = fabs(shootAngle * rotateSpeed);
+		float rotateDuration = fabs(shootAngle * rotateSpeed);    
 		
 		[self runAction:[CCSequence actions:
 						 [CCRotateTo actionWithDuration:rotateDuration angle:cocosAngle],
 						 [CCCallFunc actionWithTarget:self selector:@selector(finishFiring)],
-						 nil]];
+						 nil]];		
 	}
 }
 
@@ -335,7 +335,7 @@
                                         [CCCallFuncN actionWithTarget:self selector:@selector(creepMoveFinished:)],
                                         nil]];
         
-        self.nextProjectile.tag = 2;
+        self.nextProjectile.tag = 2;		
         
         self.nextProjectile = nil;
     }
@@ -436,12 +436,12 @@
 		CGFloat cocosAngle = CC_RADIANS_TO_DEGREES(-1 * shootAngle);
 		
 		float rotateSpeed = 0.5 / M_PI; // 1/2 second to roate 180 degrees
-		float rotateDuration = fabs(shootAngle * rotateSpeed);
+		float rotateDuration = fabs(shootAngle * rotateSpeed);    
 		
 		[self runAction:[CCSequence actions:
 						 [CCRotateTo actionWithDuration:rotateDuration angle:cocosAngle],
 						 [CCCallFunc actionWithTarget:self selector:@selector(finishFiring)],
-						 nil]];
+						 nil]];		
 	}
 }
 
@@ -478,7 +478,7 @@
                                         [CCCallFuncN actionWithTarget:self selector:@selector(creepMoveFinished:)],
                                         nil]];
         
-        self.nextProjectile.tag = 3;
+        self.nextProjectile.tag = 3;		
         
         self.nextProjectile = nil;
     }
@@ -486,4 +486,3 @@
 }
 
 @end
-

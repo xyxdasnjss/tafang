@@ -7,14 +7,16 @@
 //
 
 
+
 #import "Creep.h"
 #import "Projectile.h"
 #import "Tower.h"
 #import "WayPoint.h"
 #import "Wave.h"
 #import "baseAttributes.h"
-
 #import "GameHUD.h"
+#import "EndGame.h"
+#import "MenuLayer.h"
 
 // Tutorial Layer
 @interface Tutorial : CCLayer
@@ -38,5 +40,7 @@
 - (void)addWaypoint;
 - (void)addTower: (CGPoint)pos tag:(int)towerTag;
 - (BOOL) canBuildOnTilePosition:(CGPoint) pos;
-
++(void) resetGame;
+-(void) resetLayer;
+-(void) loadMenu;
 @end

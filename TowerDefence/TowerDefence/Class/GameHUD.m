@@ -7,17 +7,19 @@
 //
 
 #import "GameHUD.h"
+#import "EndGame.h"
 #import "DataModel.h"
 #import "TutorialScene.h"
+#import "PauseLayer.h"
 
 @implementation GameHUD
 
 @synthesize resources = resources;
 @synthesize baseHpPercentage = baseHpPercentage;
+@synthesize waveCount = waveCount;
 
-
-int waveCount;
-
+//int waveCount;
+bool resetGameHUD;
 
 static GameHUD *_sharedHUD = nil;
 
@@ -58,13 +60,12 @@ static GameHUD *_sharedHUD = nil;
         [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_Default];
 		
         movableSprites = [[NSMutableArray alloc] init];
-        NSArray *images = [NSArray arrayWithObjects:@"MachineGunTurret.png", @"FreezeTurret.png", @"CannonTurret.png", nil];
+        NSArray *images = [NSArray arrayWithObjects:@"MachineGunTurret.png", @"FreezeTurret.png", @"CannonTurret.png", nil];  
         for(int i = 0; i < images.count; ++i) {
             NSString *image = [images objectAtIndex:i];
             CCSprite *sprite = [CCSprite spriteWithFile:image];
             float offsetFraction = ((float)(i+1))/(images.count+1);
-            sprite.position = ccp(winSize.width*offsetFraction, WINSCALE == 1? 35 *.5 :35);
-            
+            sprite.position = ccp(winSize.width*offsetFraction, 35);
             sprite.tag = i+1;
             [self addChild:sprite];
             [movableSprites addObject:sprite];
@@ -117,7 +118,6 @@ static GameHUD *_sharedHUD = nil;
         waveCountLabel.color = ccc3(100,0,100);
         [self addChild:waveCountLabel z:1];
         
-        baseHpPercentage = 100;
         
         // Set up new Wave label
         newWaveLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(300, 50) alignment:UITextAlignmentRight fontName:@"TrebuchetMS-Bold" fontSize:30];
@@ -126,28 +126,78 @@ static GameHUD *_sharedHUD = nil;
         [self addChild:newWaveLabel z:1];
         
         //Set up helth Bar
-        //        self->healthBar = [CCProgressTimer progressWithFile:@"health_bar_green.png"];
         CCSprite *bar = [CCSprite spriteWithFile:@"health_bar_green.png"];
-        self->healthBar = [CCProgressTimer progressWithSprite:bar];
-        self->healthBar.type = kCCProgressTimerTypeBar;
+        healthBar = [CCProgressTimer progressWithSprite:bar];
+        healthBar.type = kCCProgressTimerTypeBar;
+        
+       
         healthBar.percentage = baseHpPercentage;
-        [healthBar setScale:0.5];
+        [healthBar setScale:0.5]; 
         healthBar.position = ccp(winSize.width -55, winSize.height -15);
         [self addChild:healthBar z:1];
         
+        baseHpPercentage = 100;
+        [healthBar setPercentage:baseHpPercentage];
+
         
-        [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+        
+        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
         
         [self schedule:@selector(updateResourcesNom) interval: baseAttributes.baseMoneyRegenRate];
+        
         [self schedule:@selector(update:)];
         
+        resetGameHUD = NO;
+        
+        CCMenuItemImage *pauseButton = [CCMenuItemImage itemFromNormalImage:@"Pause.png" selectedImage:@"Pause.png" target:self selector:@selector(pauseGame)];
+        pauseButton.scale = 0.13;
+        
+        CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
+		menu.position = ccp(winSize.width -35, 35);
+		[menu alignItemsVerticallyWithPadding: 20.0f];
+		[self addChild:menu];
+
+        
+
 	}
     
     
     return self;
 }
++(void) resetGameHUD
+{
+    resetGameHUD = YES;
+}
+
+-(void) resetGameHUDLayer
+{
+    resetGameHUD = NO;
+    
+    [healthBar setSprite:[CCSprite spriteWithFile:@"health_bar_green.png"]];
+    [healthBar setScale:0.5]; 
+    baseHpPercentage = 99;
+    [healthBar setPercentage:baseHpPercentage];    
+    [self updateBaseHp:+1];
+
+    waveCount = 0;
+    [waveCountLabel setString:[NSString stringWithFormat: @"Wave 1"]];
+
+    resources = baseAttributes.baseStartingMoney;
+    [resourceLabel setString:[NSString stringWithFormat: @"Money $%i",resources]];
+}
+
+-(void) pauseGame
+{
+    CCLayerColor *pauseLayer =[[[PauseLayer alloc]init]autorelease];
+    [self.parent addChild:pauseLayer z:10];
+    [[CCDirector sharedDirector] pause];
+}
 
 -(void) update:(ccTime) dt{
+    
+    if (resetGameHUD == YES) {
+        [self resetGameHUDLayer];
+    }
     
     for (CCSprite *sprite in movableSprites){
         switch (sprite.tag) {
@@ -190,13 +240,16 @@ static GameHUD *_sharedHUD = nil;
     
     if (baseHpPercentage <= 25) {
         [self->healthBar setSprite:[CCSprite spriteWithFile:@"health_bar_red.png"]];
-        [self->healthBar setScale:0.5];
+        [self->healthBar setScale:0.5]; 
     }
     
     if (baseHpPercentage <= 0) {
         //Game Over Scenario
-        printf("Game Over\n");
-        //Implement Game Over Scenario
+      //printf("Game Over\n");
+        
+        CCLayerColor *endGameLayer =[[[EndGame alloc]init:NO ]autorelease];
+        [self.parent addChild:endGameLayer z:10];
+        [[CCDirector sharedDirector] pause]; 
     }
     
     [self->healthBar setPercentage:baseHpPercentage];
@@ -224,11 +277,11 @@ static GameHUD *_sharedHUD = nil;
 }
 
 
-- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {  
     CGPoint touchLocation = [self convertTouchToNodeSpace:touch];
     CCSprite * newSprite = nil;
     for (CCSprite *sprite in movableSprites) {
-        if (CGRectContainsPoint(sprite.boundingBox, touchLocation)) {
+        if (CGRectContainsPoint(sprite.boundingBox, touchLocation)) { 
             if (sprite.opacity == 255) {
                 
                 
@@ -243,7 +296,7 @@ static GameHUD *_sharedHUD = nil;
                         break;
                     case 2:
                         selSpriteRange.scale = (baseAttributes.baseFRange/50);
-                        break;
+                        break; 
                     case 3:
                         selSpriteRange.scale = (baseAttributes.baseCRange/50);
                         break;
@@ -254,7 +307,7 @@ static GameHUD *_sharedHUD = nil;
                 selSpriteRange.position = sprite.position;
                 
                 newSprite = [CCSprite spriteWithTexture:[sprite texture]]; //sprite;
-                newSprite.position = ccpAdd(sprite.position, ccp(0, 0));
+                newSprite.position = ccpAdd(sprite.position, ccp(0, 20));
                 selSprite = newSprite;
                 selSprite.tag = sprite.tag;
                 [self addChild:newSprite];
@@ -262,23 +315,18 @@ static GameHUD *_sharedHUD = nil;
 			}
             break;
         }
-    }
+    }     
 	return YES;
 }
 
-- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
-    
-    
+- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {  
     CGPoint touchLocation = [self convertTouchToNodeSpace:touch];
-
-    
-    
     
     CGPoint oldTouchLocation = [touch previousLocationInView:touch.view];
     oldTouchLocation = [[CCDirector sharedDirector] convertToGL:oldTouchLocation];
     oldTouchLocation = [self convertToNodeSpace:oldTouchLocation];
     
-    CGPoint translation = ccpSub(touchLocation, oldTouchLocation);
+    CGPoint translation = ccpSub(touchLocation, oldTouchLocation);    
 	
 	if (selSprite) {
 		CGPoint newPos = ccpAdd(selSprite.position, translation);
@@ -292,54 +340,37 @@ static GameHUD *_sharedHUD = nil;
 		if (isBuildable) {
 			selSprite.opacity = 200;
 		} else {
-			selSprite.opacity = 50;
+			selSprite.opacity = 50;		
 		}
 	}
 }
 
-- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    
-    
-    
-    
-	CGPoint touchLocation = [self convertTouchToNodeSpace:touch];
-    
-    DLog(@"=======touchLocation:%f,%f",touchLocation.x,touchLocation.y);
-    
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {  
+	CGPoint touchLocation = [self convertTouchToNodeSpace:touch];	
 	DataModel *m = [DataModel getModel];
-    
+
 	if (selSprite) {
-		CGRect backgroundRect = CGRectMake(background.position.x,
-                                           background.position.y,
-                                           background.contentSize.width,
-                                           background.contentSize.height);
+		CGRect backgroundRect = CGRectMake(background.position.x, 
+									   background.position.y, 
+									   background.contentSize.width, 
+									   background.contentSize.height);
 		
-//        DLog(@"%f,%f,%f,%f",background.position.x,
-//             background.position.y,
-//             background.contentSize.width,
-//             background.contentSize.height);
-        
-        
 		if (!CGRectContainsPoint(backgroundRect, touchLocation)) {
 			CGPoint touchLocationInGameLayer = [m._gameLayer convertTouchToNodeSpace:touch];
-            
-             DLog(@"%f,%f",touchLocationInGameLayer.x,touchLocationInGameLayer.y);
-            
-            
 			[m._gameLayer addTower: touchLocationInGameLayer tag: selSprite.tag];
 		}
 		
 		[self removeChild:selSprite cleanup:YES];
-		selSprite = nil;
+		selSprite = nil;		
 		[self removeChild:selSpriteRange cleanup:YES];
-		selSpriteRange = nil;
+		selSpriteRange = nil;			
 	}
 	
 	m._gestureRecognizer.enabled = YES;
 }
 - (void) registerWithTouchDispatcher
 {
-	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 }
 
 // on "dealloc" you need to release all your retained objects
@@ -350,4 +381,3 @@ static GameHUD *_sharedHUD = nil;
 	[super dealloc];
 }
 @end
-
