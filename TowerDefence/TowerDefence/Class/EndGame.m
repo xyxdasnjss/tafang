@@ -21,7 +21,7 @@
         GameHUD *gameHUD;
         gameHUD = [GameHUD sharedHUD];
 
-        CCLabelTTF *endGameLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(150, 40) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:30];
+        CCLabelTTF *endGameLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(150, 40) hAlignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:30];
         endGameLabel.position = ccp((winSize.width/2-10), (winSize.height - 30));
         endGameLabel.color = ccc3(255,80,20);
         [self addChild:endGameLabel z:1];
@@ -34,19 +34,19 @@
             [endGameLabel setString:[NSString stringWithFormat: @"You Win!"]];
 
         }
-        CCLabelTTF *welldoneLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(300, 40) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:30];
+        CCLabelTTF *welldoneLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(300, 40) hAlignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:30];
         welldoneLabel.position = ccp((winSize.width/2-30), (winSize.height/2 + 75));
         welldoneLabel.color = ccc3(255,80,20);
         [self addChild:welldoneLabel z:1];
         
         [welldoneLabel setString:[NSString stringWithFormat: @"You reached wave %i",gameHUD.waveCount]];        
         
-        CCLabelTTF *restartLabel = [CCLabelTTF labelWithString:@"Restart?" dimensions:CGSizeMake(300, 40) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:30];
+        CCLabelTTF *restartLabel = [CCLabelTTF labelWithString:@"Restart?" dimensions:CGSizeMake(300, 40) hAlignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:30];
         restartLabel.position = ccp((winSize.width/2 - 150), (winSize.height/2));
         restartLabel.color = ccc3(255,80,20);
         [self addChild:restartLabel z:1];
         
-        CCLabelTTF *menuLabel = [CCLabelTTF labelWithString:@"Menu" dimensions:CGSizeMake(300, 40) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:30];
+        CCLabelTTF *menuLabel = [CCLabelTTF labelWithString:@"Menu" dimensions:CGSizeMake(300, 40) hAlignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:30];
         menuLabel.position = ccp((winSize.width/2 - 150), (winSize.height/2-50));
         menuLabel.color = ccc3(255,80,20);
         [self addChild:menuLabel z:1];
@@ -55,16 +55,16 @@
         CCMenuItemImage *menuButton;
         CCMenu *menu;
         
-            replayButton = [CCMenuItemImage itemFromNormalImage:@"Buy.png" selectedImage:@"Buy.png" target:self selector:@selector(replayLevel)];
+            replayButton = [CCMenuItemImage itemWithNormalImage:@"Buy.png" selectedImage:@"Buy.png" target:self selector:@selector(replayLevel)];
             
-        menuButton = [CCMenuItemImage itemFromNormalImage:@"Buy.png" selectedImage:@"Buy.png" target:self selector:@selector(returnToMenu)];
+        menuButton = [CCMenuItemImage itemWithNormalImage:@"Buy.png" selectedImage:@"Buy.png" target:self selector:@selector(returnToMenu)];
                 menu = [CCMenu menuWithItems: replayButton, menuButton, nil];
 
 		menu.position = ccp((winSize.width/2 + 50), (winSize.height/2-22));
 		[menu alignItemsVerticallyWithPadding: 5.0f];
 		[self addChild:menu];
         
-        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:10 swallowsTouches:YES];
+        [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:10 swallowsTouches:YES];
         
 	}	
 	return self;

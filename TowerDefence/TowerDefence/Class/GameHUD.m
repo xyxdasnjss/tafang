@@ -97,7 +97,7 @@ static GameHUD *_sharedHUD = nil;
         //CGSize winSize = [CCDirector sharedDirector].winSize;
         
         // Set up Resources and Resource label
-        self->resourceLabel = [CCLabelTTF labelWithString:@"Money $100" dimensions:CGSizeMake(150, 25) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:20];
+        self->resourceLabel = [CCLabelTTF labelWithString:@"Money $100" dimensions:CGSizeMake(150, 25) hAlignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:20.0];
         resourceLabel.position = ccp(30, (winSize.height - 15));
         resourceLabel.color = ccc3(255,80,20);
         [self addChild:resourceLabel z:1];
@@ -106,21 +106,21 @@ static GameHUD *_sharedHUD = nil;
         [self->resourceLabel setString:[NSString stringWithFormat: @"Money $%i",resources]];
         
         // Set up BaseHplabel
-        CCLabelTTF *baseHpLabel = [CCLabelTTF labelWithString:@"Base Health" dimensions:CGSizeMake(150, 25) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:20];
+        CCLabelTTF *baseHpLabel = [CCLabelTTF labelWithString:@"Base Health" dimensions:CGSizeMake(150, 25) hAlignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:20];
         baseHpLabel.position = ccp((winSize.width - 185), (winSize.height - 15));
         baseHpLabel.color = ccc3(255,80,20);
         [self addChild:baseHpLabel z:1];
         
         // Set up wavecount label
         waveCount = 0;
-        waveCountLabel = [CCLabelTTF labelWithString:@"Wave 1" dimensions:CGSizeMake(150, 25) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:20];
+        waveCountLabel = [CCLabelTTF labelWithString:@"Wave 1" dimensions:CGSizeMake(150, 25) hAlignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:20];
         waveCountLabel.position = ccp(((winSize.width/2) - 80), (winSize.height - 15));
         waveCountLabel.color = ccc3(100,0,100);
         [self addChild:waveCountLabel z:1];
         
         
         // Set up new Wave label
-        newWaveLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(300, 50) alignment:UITextAlignmentRight fontName:@"TrebuchetMS-Bold" fontSize:30];
+        newWaveLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(300, 50) hAlignment:UITextAlignmentRight fontName:@"TrebuchetMS-Bold" fontSize:30];
         newWaveLabel.position = ccp((winSize.width/2)-20, (winSize.height/2)+30);
         newWaveLabel.color = ccc3(255,50,50);
         [self addChild:newWaveLabel z:1];
@@ -141,7 +141,7 @@ static GameHUD *_sharedHUD = nil;
 
         
         
-        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+        [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
         
         [self schedule:@selector(updateResourcesNom) interval: baseAttributes.baseMoneyRegenRate];
         
@@ -149,7 +149,8 @@ static GameHUD *_sharedHUD = nil;
         
         resetGameHUD = NO;
         
-        CCMenuItemImage *pauseButton = [CCMenuItemImage itemFromNormalImage:@"Pause.png" selectedImage:@"Pause.png" target:self selector:@selector(pauseGame)];
+        CCMenuItemImage *pauseButton = [CCMenuItemImage itemWithNormalImage:@"Pause.png" selectedImage:@"Pause.png" target:self selector:@selector(pauseGame)];
+        
         pauseButton.scale = 0.13;
         
         CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
@@ -307,7 +308,7 @@ static GameHUD *_sharedHUD = nil;
                 selSpriteRange.position = sprite.position;
                 
                 newSprite = [CCSprite spriteWithTexture:[sprite texture]]; //sprite;
-                newSprite.position = ccpAdd(sprite.position, ccp(0, 20));
+                newSprite.position = ccpAdd(sprite.position, ccp(0, 0)); //0,20
                 selSprite = newSprite;
                 selSprite.tag = sprite.tag;
                 [self addChild:newSprite];
@@ -335,12 +336,23 @@ static GameHUD *_sharedHUD = nil;
 		
 		DataModel *m = [DataModel getModel];
 		CGPoint touchLocationInGameLayer = [m._gameLayer convertTouchToNodeSpace:touch];
-		
+        
+        DLog(@"111===%f,%f",touchLocationInGameLayer.x,touchLocationInGameLayer.y);
+//        DLog(@"%f,%f",selSprite.contentSize.width);
+//        
+//        touchLocationInGameLayer = CGPointMake(touchLocationInGameLayer.x - selSprite.contentSize.width * .5, touchLocationInGameLayer.y - selSprite.contentSize.height * .5);
+//		
+//        
+//        DLog(@"222===%f,%f",touchLocationInGameLayer.x,touchLocationInGameLayer.y);
+        
+        
 		BOOL isBuildable = (bool)[m._gameLayer canBuildOnTilePosition: touchLocationInGameLayer];
 		if (isBuildable) {
 			selSprite.opacity = 200;
+            selSpriteRange.opacity = 200;
 		} else {
-			selSprite.opacity = 50;		
+			selSprite.opacity = 50;
+            selSpriteRange.opacity = 50;
 		}
 	}
 }
@@ -370,7 +382,7 @@ static GameHUD *_sharedHUD = nil;
 }
 - (void) registerWithTouchDispatcher
 {
-	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 }
 
 // on "dealloc" you need to release all your retained objects

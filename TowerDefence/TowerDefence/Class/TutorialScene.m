@@ -76,6 +76,10 @@ bool reset;
 		self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"TileMap.tmx"];
         self.background = [_tileMap layerNamed:@"Background"];
 		self.background.anchorPoint = ccp(0, 0);
+        
+        
+        DLog(@"background:%f,%f",self.background.contentSize.width,self.background.contentSize.height);
+        
 		[self addChild:_tileMap z:0];
         
         CGSize ms = [self.tileMap mapSize];
@@ -92,6 +96,8 @@ bool reset;
         
         
         
+        
+        
 		
 		[self addWaypoint];
 		[self addWaves];
@@ -105,7 +111,7 @@ bool reset;
         
 		self.currentLevel = 0;
 		
-//		self.position = ccp(-258, -122);
+        //		self.position = ccp(-258, -122);
 		
 		gameHUD = [GameHUD sharedHUD];
         baseAttributes = [BaseAttributes sharedAttributes];
@@ -165,7 +171,7 @@ bool reset;
     
     self.currentLevel = 0;
     
-    self.position = ccp(-258, -122);
+    //    self.position = ccp(-258, -122);
     self.isTouchEnabled = YES;
     
 }
@@ -237,30 +243,60 @@ bool reset;
 
 - (CGPoint) tileCoordForPosition:(CGPoint) position
 {
-    CGSize tileSize = CGSizeMake(self.tileMap.tileSize.width,self.tileMap.tileSize.height);
-    if (WINSCALE == 1) {
-        tileSize = CGSizeMake(self.tileMap.tileSize.width/2,self.tileMap.tileSize.height/2);
+    
+    int x,y;
+    if (WINSCALE == 1)
+    {
+        
+        x = (position.x * 2) / self.tileMap.tileSize.width;
+        y = ((self.tileMap.mapSize.height * self.tileMap.tileSize.height) - (position.y * 2)) / self.tileMap.tileSize.height;
+        y = y < 0 ? 0 : y;
+        
+        
+        DLog(@"%d,%d",x,y);
+        
+        
+    }else
+    {
+        x = position.x / self.tileMap.tileSize.width;
+        y = ((self.tileMap.mapSize.height * self.tileMap.tileSize.height) - position.y) / self.tileMap.tileSize.height;
+        
+        DLog(@"%d,%d",x,y);
+        
     }
     
     
-//    position = ccpAdd(position, ccp(0, 25));
-	int x = position.x / tileSize.width;
-	int y = ((tileSize.height * tileSize.height) - position.y) / tileSize.height;
-	
+    //    DLog(@"%d,%d",x,y);
+    
 	return ccp(x,y);
 }
 
 - (BOOL) canBuildOnTilePosition:(CGPoint) pos
 {
-    pos = ccpAdd(pos, ccp(0, 20));
+    //    DLog(@"pos1:%f,%f",pos.x,pos.y);
+    //    pos = ccpAdd(pos, ccp(0, 20));
+    DataModel *m = [DataModel getModel];
+    
+    //    DLog(@"pos2:%f,%f",pos.x,pos.y);
+    
 	CGPoint towerLoc = [self tileCoordForPosition: pos];
+    //    DLog(@"towerLoc:%f,%f",towerLoc.x,towerLoc.y);
+    
+    
+    if (!(pos.x < m._gameLayer.contentSize.width && pos.y < m._gameLayer.contentSize.height && pos.x >=0 && pos.y >=0)) {
+        return NO;
+    }
+    if (towerLoc.x <= 0 || towerLoc.y <= 0) {
+        return NO;
+    }
+    
 	int tileGid = [self.background tileGIDAt:towerLoc];
 	NSDictionary *props = [self.tileMap propertiesForGID:tileGid];
 	NSString *type = [props valueForKey:@"buildable"];
 	
     
     bool occupied = NO;
-    DataModel *m = [DataModel getModel];
+    
     for (Tower *tower in m._towers) {
         CGRect towerRect = CGRectMake(tower.position.x - (tower.contentSize.width/2),
                                       tower.position.y - (tower.contentSize.height/2),
@@ -284,7 +320,7 @@ bool reset;
 	DataModel *m = [DataModel getModel];
 	
 	Tower *target = nil;
-//    pos = ccpAdd(pos, ccp(0, 25));
+    //    pos = ccpAdd(pos, ccp(0, 20));
     
     
     
@@ -342,13 +378,19 @@ bool reset;
                 
         }
         
+        //        DLog(@"%f,%f",self.tileMap.contentSize.width,self.tileMap.contentSize.height);
+        
+        
+        
         if (WINSCALE == 1) {
-            target.position = ccp((towerLoc.x * 16) + 8, self.tileMap.contentSize.height - (towerLoc.y * 16) - 16);
+            
+            target.position = ccp(((towerLoc.x * 32) + 16) *.5, (self.tileMap.contentSize.height - ((towerLoc.y * 32) - 16) * .5)) ;
         }else{
             target.position = ccp((towerLoc.x * 32) + 16, self.tileMap.contentSize.height - (towerLoc.y * 32) - 16);
+            
         }
         
-//        target.position = ccp(71.5, 234.5);
+        //        target.position = ccp(71.5, 234.5);
         
         DLog(@"target.position:%f,%f",pos.x,pos.y);
         DLog(@"towerLoc:%f,%f",towerLoc.x,towerLoc.y);

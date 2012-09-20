@@ -19,7 +19,7 @@
 		background.position = ccp(winSize.width/2, winSize.height/2);
 		[self addChild:background];
         
-		CCMenuItemImage *rangeButton = [CCMenuItemImage itemFromNormalImage:@"Buy.png" selectedImage:@"Buy.png" target:self selector:@selector(startGame)];
+		CCMenuItemImage *rangeButton = [CCMenuItemImage itemWithNormalImage:@"Buy.png" selectedImage:@"Buy.png" target:self selector:@selector(startGame)];
         
         
 		CCMenu *menu = [CCMenu menuWithItems:rangeButton, nil];
@@ -37,6 +37,7 @@
     [Tutorial resetGame];
     [self.parent removeChild:self cleanup:TRUE];
     [[CCDirector sharedDirector] resume];
+//    [[CCDirector sharedDirector ] replaceScene:[Tutorial scene]];
 }
 
 -(void) dealloc{

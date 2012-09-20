@@ -22,6 +22,7 @@
 		13007EF816087CCD00F24708 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 13007EF716087CCD00F24708 /* Pause.png */; };
 		13007EFA16087E7F00F24708 /* MenuScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 13007EF916087E7F00F24708 /* MenuScreen.png */; };
 		13007EFC16087FAE00F24708 /* Buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 13007EFB16087FAE00F24708 /* Buy.png */; };
+		131B5062160B1E5C007B870F /* Cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 131B5061160B1E5C007B870F /* Cancel.png */; };
 		13D81E761608279D00BBF42B /* CannonProjectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6B1608279D00BBF42B /* CannonProjectile.png */; };
 		13D81E771608279D00BBF42B /* CannonTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6C1608279D00BBF42B /* CannonTurret.png */; };
 		13D81E781608279D00BBF42B /* CannonTurretUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6D1608279D00BBF42B /* CannonTurretUpgrade.png */; };
@@ -33,6 +34,7 @@
 		13D81E7E1608279D00BBF42B /* IceProjectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E731608279D00BBF42B /* IceProjectile.png */; };
 		13D81E7F1608279D00BBF42B /* MGTowerUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E741608279D00BBF42B /* MGTowerUpgrade.png */; };
 		13D81E801608279D00BBF42B /* TileMap1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E751608279D00BBF42B /* TileMap1.tmx */; };
+		13DCF520160AC6D900A089D7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 13DCF51F160AC6D900A089D7 /* README.md */; };
 		13E77C151601ABD1006450BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C141601ABD1006450BE /* QuartzCore.framework */; };
 		13E77C171601ABD1006450BE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C161601ABD1006450BE /* OpenGLES.framework */; };
 		13E77C191601ABD1006450BE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C181601ABD1006450BE /* OpenAL.framework */; };
@@ -247,6 +249,7 @@
 		13007EF716087CCD00F24708 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		13007EF916087E7F00F24708 /* MenuScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuScreen.png; sourceTree = "<group>"; };
 		13007EFB16087FAE00F24708 /* Buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Buy.png; sourceTree = "<group>"; };
+		131B5061160B1E5C007B870F /* Cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cancel.png; sourceTree = "<group>"; };
 		13D81E6B1608279D00BBF42B /* CannonProjectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonProjectile.png; sourceTree = "<group>"; };
 		13D81E6C1608279D00BBF42B /* CannonTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonTurret.png; sourceTree = "<group>"; };
 		13D81E6D1608279D00BBF42B /* CannonTurretUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonTurretUpgrade.png; sourceTree = "<group>"; };
@@ -258,6 +261,7 @@
 		13D81E731608279D00BBF42B /* IceProjectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IceProjectile.png; sourceTree = "<group>"; };
 		13D81E741608279D00BBF42B /* MGTowerUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MGTowerUpgrade.png; sourceTree = "<group>"; };
 		13D81E751608279D00BBF42B /* TileMap1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TileMap1.tmx; sourceTree = "<group>"; };
+		13DCF51F160AC6D900A089D7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		13E77C101601ABD1006450BE /* TowerDefence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E77C141601ABD1006450BE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		13E77C161601ABD1006450BE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -685,6 +689,7 @@
 		13E77C051601ABD1006450BE = {
 			isa = PBXGroup;
 			children = (
+				13DCF51F160AC6D900A089D7 /* README.md */,
 				13E77C261601ABD1006450BE /* TowerDefence */,
 				13E77C131601ABD1006450BE /* Frameworks */,
 				13E77C111601ABD1006450BE /* Products */,
@@ -1262,6 +1267,7 @@
 		13E77E6C1601B7B0006450BE /* images */ = {
 			isa = PBXGroup;
 			children = (
+				131B5061160B1E5C007B870F /* Cancel.png */,
 				13007EFB16087FAE00F24708 /* Buy.png */,
 				13007EF916087E7F00F24708 /* MenuScreen.png */,
 				13007EF716087CCD00F24708 /* Pause.png */,
@@ -1378,6 +1384,8 @@
 				13007EF816087CCD00F24708 /* Pause.png in Resources */,
 				13007EFA16087E7F00F24708 /* MenuScreen.png in Resources */,
 				13007EFC16087FAE00F24708 /* Buy.png in Resources */,
+				13DCF520160AC6D900A089D7 /* README.md in Resources */,
+				131B5062160B1E5C007B870F /* Cancel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1607,6 +1615,7 @@
 				GCC_PREFIX_HEADER = TowerDefence/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"TowerDefence/libs/kazmath/include\"";
 				INFOPLIST_FILE = TowerDefence/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -1626,6 +1635,7 @@
 				GCC_PREFIX_HEADER = TowerDefence/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"TowerDefence/libs/kazmath/include\"";
 				INFOPLIST_FILE = TowerDefence/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
