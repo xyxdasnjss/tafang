@@ -337,19 +337,13 @@ static GameHUD *_sharedHUD = nil;
 		DataModel *m = [DataModel getModel];
 		CGPoint touchLocationInGameLayer = [m._gameLayer convertTouchToNodeSpace:touch];
         
-        DLog(@"111===%f,%f",touchLocationInGameLayer.x,touchLocationInGameLayer.y);
-//        DLog(@"%f,%f",selSprite.contentSize.width);
-//        
-//        touchLocationInGameLayer = CGPointMake(touchLocationInGameLayer.x - selSprite.contentSize.width * .5, touchLocationInGameLayer.y - selSprite.contentSize.height * .5);
-//		
-//        
-//        DLog(@"222===%f,%f",touchLocationInGameLayer.x,touchLocationInGameLayer.y);
-        
+
         
 		BOOL isBuildable = (bool)[m._gameLayer canBuildOnTilePosition: touchLocationInGameLayer];
 		if (isBuildable) {
 			selSprite.opacity = 200;
             selSpriteRange.opacity = 200;
+
 		} else {
 			selSprite.opacity = 50;
             selSpriteRange.opacity = 50;

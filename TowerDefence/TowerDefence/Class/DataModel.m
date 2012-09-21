@@ -15,7 +15,7 @@
 
 @synthesize _projectiles;
 @synthesize _towers;
-@synthesize _targets;
+@synthesize _targets;//敌人呀
 @synthesize _waypoints;
 
 @synthesize _waves;

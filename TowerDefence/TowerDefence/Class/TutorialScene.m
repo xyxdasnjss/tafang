@@ -28,13 +28,13 @@ bool reset;
 	Tutorial *layer = [Tutorial node];
 	
 	// add layer as a child to scene
-	[scene addChild: layer z:1];
+	[scene addChild: layer z:kZTutorial];
 	
 	GameHUD * myGameHUD = [GameHUD sharedHUD];
-	[scene addChild:myGameHUD z:2];
+	[scene addChild:myGameHUD z:kZGameHUD];
     
     CCLayer *menuLayer =[[[MenuLayer alloc]init ]autorelease];
-    [scene addChild:menuLayer z:10];
+    [scene addChild:menuLayer z:kZMenuLayer];
     [[CCDirector sharedDirector] pause];
 	
 	DataModel *m = [DataModel getModel];
@@ -80,19 +80,19 @@ bool reset;
         
         DLog(@"background:%f,%f",self.background.contentSize.width,self.background.contentSize.height);
         
-		[self addChild:_tileMap z:0];
+		[self addChild:_tileMap z:kZTileMap];
         
-        CGSize ms = [self.tileMap mapSize];
-		CGSize ts = [self.tileMap tileSize];
-        
-        DLog(@"mapSize:%.2f,%.2f",ms.width,ms.height);
-        DLog(@"tileSize:%.2f,%.2f",ts.height,ts.width);
-        
-        CGSize s = self.tileMap.contentSize;
-		DLog(@"ContentSize: %f, %f", s.width,s.height);
-        
-        CGSize size = [[CCDirector sharedDirector] winSize];
-        DLog(@"directorSize:%f, %f",size.width,size.height);
+//        CGSize ms = [self.tileMap mapSize];
+//		CGSize ts = [self.tileMap tileSize];
+//        
+//        DLog(@"mapSize:%.2f,%.2f",ms.width,ms.height);
+//        DLog(@"tileSize:%.2f,%.2f",ts.height,ts.width);
+//        
+//        CGSize s = self.tileMap.contentSize;
+//		DLog(@"ContentSize: %f, %f", s.width,s.height);
+//        
+//        CGSize size = [[CCDirector sharedDirector] winSize];
+//        DLog(@"directorSize:%f, %f",size.width,size.height);
         
         
         
@@ -140,6 +140,7 @@ bool reset;
         [towersToDelete addObject:tower];
         [self removeChild:tower cleanup:YES];
     }
+    // ？为什么remove两次？
     for (Tower *tower in towersToDelete) {
         [self removeChild:tower cleanup:YES];
     }

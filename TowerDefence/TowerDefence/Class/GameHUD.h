@@ -17,7 +17,7 @@
 	CCSprite * selSpriteRange;
     CCSprite * selSprite;
     NSMutableArray * movableSprites;
-    int resources;
+    int resources;//钱
     CCLabelTTF *resourceLabel;
     CCLabelTTF *waveCountLabel;
     CCLabelTTF *newWaveLabel;

@@ -52,6 +52,7 @@
     
 	self.curWaypoint++;
 	
+    //路线走完了
 	if (self.curWaypoint >= m._waypoints.count){
         self.curWaypoint--;
         gameHUD = [GameHUD sharedHUD];

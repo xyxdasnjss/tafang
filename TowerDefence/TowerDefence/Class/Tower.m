@@ -47,6 +47,9 @@
 		
 	}
 	
+    DLog("maxDistant:%f, self.range:%d, maxDistant - self.range:%f",maxDistant , self.range, maxDistant - self.range);
+
+    
 	if (maxDistant < self.range)
 		return closestCreep;
 	
@@ -55,6 +58,13 @@
 
 
 @end
+
+
+#pragma mark -
+#pragma mark MachineGunTower
+
+
+
 
 @implementation MachineGunTower
 
@@ -201,6 +211,9 @@
 @end
 
 
+#pragma mark -
+#pragma mark FreezeTower
+
 @implementation FreezeTower
 
 + (id)tower {
@@ -343,6 +356,12 @@
 }
 
 @end
+
+
+
+
+#pragma mark -
+#pragma mark CannonTower 
 
 @implementation CannonTower
 

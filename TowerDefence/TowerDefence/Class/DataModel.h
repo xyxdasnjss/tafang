@@ -14,9 +14,9 @@
 	CCLayer *_gameLayer;
 	CCLayer *_gameHUDLayer;
 	
-	NSMutableArray *_projectiles;
-	NSMutableArray *_towers;
-	NSMutableArray *_targets;
+	NSMutableArray *_projectiles;//子弹
+	NSMutableArray *_towers;//我们自己
+	NSMutableArray *_targets;//敌人
 	NSMutableArray *_waypoints;
 	
 	NSMutableArray *_waves;

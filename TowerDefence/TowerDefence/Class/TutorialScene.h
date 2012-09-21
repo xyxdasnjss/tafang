@@ -18,6 +18,12 @@
 #import "EndGame.h"
 #import "MenuLayer.h"
 
+
+#define kZTutorial          1
+#define kZGameHUD           2
+#define kZMenuLayer         10
+#define kZTileMap           0
+
 // Tutorial Layer
 @interface Tutorial : CCLayer
 {
@@ -26,7 +32,7 @@
 	
 	int _currentLevel;
 	
-	GameHUD * gameHUD;
+	GameHUD * gameHUD;//底部菜单
     BaseAttributes * baseAttributes;
     
 }
