@@ -23,9 +23,10 @@
 #define kZGameHUD           2
 #define kZMenuLayer         10
 #define kZTileMap           0
+#define kZTower             3
 
 // Tutorial Layer
-@interface Tutorial : CCLayer
+@interface Tutorial : CCLayer<MyTowerDelegate>
 {
     CCTMXTiledMap *_tileMap;
     CCTMXLayer *_background;
@@ -35,12 +36,14 @@
 	GameHUD * gameHUD;//底部菜单
     BaseAttributes * baseAttributes;
     
+    CCSprite * _selSpriteRange;//点击地图上的塔，显示的范围
 }
 
 @property (nonatomic, retain) CCTMXTiledMap *tileMap;
 @property (nonatomic, retain) CCTMXLayer *background;
 
 @property (nonatomic, assign) int currentLevel;
+@property (nonatomic, retain) CCSprite *selSpriteRange;
 
 + (id) scene;
 - (void)addWaypoint;

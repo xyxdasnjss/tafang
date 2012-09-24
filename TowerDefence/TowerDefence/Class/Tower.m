@@ -29,6 +29,8 @@
 @synthesize target = _target;
 @synthesize nextProjectile = _nextProjectile;
 
+@synthesize delegate = _delegate;
+
 
 - (Creep *)getClosestTarget {
 	Creep *closestCreep = nil;
@@ -36,7 +38,7 @@
 	
 	DataModel *m = [DataModel getModel];
 	
-	for (CCSprite *target in m._targets) {	
+	for (CCSprite *target in m._targets) {
 		Creep *creep = (Creep *)target;
 		double curDistance = ccpDistance(self.position, creep.position);
 		
@@ -47,13 +49,74 @@
 		
 	}
 	
-    DLog("maxDistant:%f, self.range:%d, maxDistant - self.range:%f",maxDistant , self.range, maxDistant - self.range);
-
+//    DLog("maxDistant:%f, self.range:%d, maxDistant - self.range:%f",maxDistant , self.range, maxDistant - self.range);
+    
     
 	if (maxDistant < self.range)
 		return closestCreep;
 	
 	return nil;
+}
+
+//-(void) registerWithTouchDispatcher
+//{
+//    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+//}
+
+- (void) onEnter
+{
+    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+    [super onEnter];
+}
+
+- (void)onExit
+{
+    //取消触摸协议
+    [[[CCDirector sharedDirector] touchDispatcher]removeDelegate:self];
+    [super onExit];
+}
+
+
+
+////监听首次触发事件
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+//    DLog(@"11111监听首次触发事件");
+    BOOL isTouched = [self containsTouchLocation:touch];
+    //return 的值，如果是真则表明用户触摸事件已经被处理，其他不会再去进行监听；如果为假，则会继续交给其他注册过的类型中进行处理；
+    
+    
+    
+    return isTouched;//
+}
+
+/** 计算精灵的尺寸位置 */
+-(CGRect) rect
+{
+	return CGRectMake( position_.x - contentSize_.width*anchorPoint_.x,
+					  position_.y - contentSize_.height*anchorPoint_.y,
+					  contentSize_.width, contentSize_.height);
+}
+
+/** 判断touch点的位置是否在精灵上 */
+- (BOOL)containsTouchLocation:(UITouch *)touch
+{
+//    CCLOG(@"精灵触摸事件...........");
+    CGPoint touchLocation = [touch locationInView: [touch view]];
+	touchLocation = [[CCDirector sharedDirector] convertToGL: touchLocation];
+    CGPoint local = [self convertToNodeSpace:touchLocation];
+    CGRect r = [self rect];
+    r.origin = CGPointZero;
+    BOOL isTouched = CGRectContainsPoint( r, local );
+    if( isTouched && _delegate != nil){
+        [_delegate touchMyTower:self];
+//                CCLOG(@"**点中精灵YYYYYYYYYYYYYYYYYYYYY");
+    } else {
+//        CCLOG(@"****没有点中精灵NNNNNNNNNNNNNNNNNNNN");
+        [_delegate touchMyTower:nil];
+        
+    }
+    return isTouched;
 }
 
 
@@ -71,7 +134,7 @@
 + (id)tower {
 	
     MachineGunTower *tower = nil;
-    if ((tower = [[[super alloc] initWithFile:@"MachineGunTurret.png"] autorelease])) {        
+    if ((tower = [[[super alloc] initWithFile:@"MachineGunTurret.png"] autorelease])) {
         BaseAttributes *baseAttributes = [BaseAttributes sharedAttributes];
         
         tower.damageMin = baseAttributes.baseMGDamage;
@@ -94,7 +157,7 @@
         [tower schedule:@selector(checkTarget) interval:0.5];
         [tower schedule:@selector(checkExperience) interval:0.5];
         
-        
+//        [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
         
     }
 	
@@ -105,7 +168,9 @@
 -(id) init
 {
 	if ((self=[super init]) ) {
-		//[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+        
+//        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+        
 	}
 	return self;
 }
@@ -157,12 +222,12 @@
 		CGFloat cocosAngle = CC_RADIANS_TO_DEGREES(-1 * shootAngle);
 		
 		float rotateSpeed = 0.25 / M_PI; // 1/4 second to roate 180 degrees
-		float rotateDuration = fabs(shootAngle * rotateSpeed);    
+		float rotateDuration = fabs(shootAngle * rotateSpeed);
 		
 		[self runAction:[CCSequence actions:
 						 [CCRotateTo actionWithDuration:rotateDuration angle:cocosAngle],
 						 [CCCallFunc actionWithTarget:self selector:@selector(finishFiring)],
-						 nil]];		
+						 nil]];
         
         
         //printf("experience %i", self.experience);
@@ -202,11 +267,13 @@
                                         [CCCallFuncN actionWithTarget:self selector:@selector(creepMoveFinished:)],
                                         nil]];
         
-        self.nextProjectile.tag = 1;		
+        self.nextProjectile.tag = 1;
         
         self.nextProjectile = nil;
     }
 }
+
+
 
 @end
 
@@ -306,12 +373,12 @@
 		CGFloat cocosAngle = CC_RADIANS_TO_DEGREES(-1 * shootAngle);
 		
 		float rotateSpeed = 0.5 / M_PI; // 1/2 second to roate 180 degrees
-		float rotateDuration = fabs(shootAngle * rotateSpeed);    
+		float rotateDuration = fabs(shootAngle * rotateSpeed);
 		
 		[self runAction:[CCSequence actions:
 						 [CCRotateTo actionWithDuration:rotateDuration angle:cocosAngle],
 						 [CCCallFunc actionWithTarget:self selector:@selector(finishFiring)],
-						 nil]];		
+						 nil]];
 	}
 }
 
@@ -348,7 +415,7 @@
                                         [CCCallFuncN actionWithTarget:self selector:@selector(creepMoveFinished:)],
                                         nil]];
         
-        self.nextProjectile.tag = 2;		
+        self.nextProjectile.tag = 2;
         
         self.nextProjectile = nil;
     }
@@ -361,7 +428,7 @@
 
 
 #pragma mark -
-#pragma mark CannonTower 
+#pragma mark CannonTower
 
 @implementation CannonTower
 
@@ -455,12 +522,12 @@
 		CGFloat cocosAngle = CC_RADIANS_TO_DEGREES(-1 * shootAngle);
 		
 		float rotateSpeed = 0.5 / M_PI; // 1/2 second to roate 180 degrees
-		float rotateDuration = fabs(shootAngle * rotateSpeed);    
+		float rotateDuration = fabs(shootAngle * rotateSpeed);
 		
 		[self runAction:[CCSequence actions:
 						 [CCRotateTo actionWithDuration:rotateDuration angle:cocosAngle],
 						 [CCCallFunc actionWithTarget:self selector:@selector(finishFiring)],
-						 nil]];		
+						 nil]];
 	}
 }
 
@@ -497,7 +564,7 @@
                                         [CCCallFuncN actionWithTarget:self selector:@selector(creepMoveFinished:)],
                                         nil]];
         
-        self.nextProjectile.tag = 3;		
+        self.nextProjectile.tag = 3;
         
         self.nextProjectile = nil;
     }

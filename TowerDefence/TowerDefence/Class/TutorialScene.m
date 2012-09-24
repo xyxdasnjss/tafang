@@ -19,6 +19,7 @@
 bool reset;
 
 @synthesize currentLevel = _currentLevel;
+@synthesize selSpriteRange = _selSpriteRange;
 +(id) scene
 {
 	// 'scene' is an autorelease object.
@@ -82,21 +83,6 @@ bool reset;
         
 		[self addChild:_tileMap z:kZTileMap];
         
-//        CGSize ms = [self.tileMap mapSize];
-//		CGSize ts = [self.tileMap tileSize];
-//        
-//        DLog(@"mapSize:%.2f,%.2f",ms.width,ms.height);
-//        DLog(@"tileSize:%.2f,%.2f",ts.height,ts.width);
-//        
-//        CGSize s = self.tileMap.contentSize;
-//		DLog(@"ContentSize: %f, %f", s.width,s.height);
-//        
-//        CGSize size = [[CCDirector sharedDirector] winSize];
-//        DLog(@"directorSize:%f, %f",size.width,size.height);
-        
-        
-        
-        
         
 		
 		[self addWaypoint];
@@ -111,10 +97,13 @@ bool reset;
         
 		self.currentLevel = 0;
 		
-        //		self.position = ccp(-258, -122);
+        
 		
 		gameHUD = [GameHUD sharedHUD];
         baseAttributes = [BaseAttributes sharedAttributes];
+        
+        
+        
 		
     }
     return self;
@@ -254,7 +243,7 @@ bool reset;
         y = y < 0 ? 0 : y;
         
         
-        DLog(@"%d,%d",x,y);
+        //        DLog(@"%d,%d",x,y);
         
         
     }else
@@ -262,7 +251,7 @@ bool reset;
         x = position.x / self.tileMap.tileSize.width;
         y = ((self.tileMap.mapSize.height * self.tileMap.tileSize.height) - position.y) / self.tileMap.tileSize.height;
         
-        DLog(@"%d,%d",x,y);
+        //        DLog(@"%d,%d",x,y);
         
     }
     
@@ -390,15 +379,16 @@ bool reset;
             target.position = ccp((towerLoc.x * 32) + 16, self.tileMap.contentSize.height - (towerLoc.y * 32) - 16);
             
         }
+        target.delegate = self;
         
-        //        target.position = ccp(71.5, 234.5);
+        
         
         DLog(@"target.position:%f,%f",pos.x,pos.y);
         DLog(@"towerLoc:%f,%f",towerLoc.x,towerLoc.y);
         DLog(@"target.position:%f,%f",target.position.x,target.position.y);
         
-        //		target.position = ccp((towerLoc.x * 32) + 16, self.tileMap.contentSize.height - (towerLoc.y * 32) - 16);
-		[self addChild:target z:1];
+        
+		[self addChild:target z:kZTower];
 		
 		target.tag = 1;
 		[m._towers addObject:target];
@@ -698,6 +688,41 @@ bool reset;
         
     }
 }
+
+
+- (void)touchMyTower:(CCSprite *)sprite
+{
+    if (sprite != nil) {
+        if (_selSpriteRange != nil) {
+            [self removeChild:_selSpriteRange cleanup:YES];
+            _selSpriteRange = nil;
+        }
+        _selSpriteRange = [CCSprite spriteWithFile:@"Range.png"];
+        
+        switch (sprite.tag) {
+            case 1:
+                _selSpriteRange.scale = (baseAttributes.baseMGRange/50);
+                break;
+            case 2:
+                _selSpriteRange.scale = (baseAttributes.baseFRange/50);
+                break;
+            case 3:
+                _selSpriteRange.scale = (baseAttributes.baseCRange/50);
+                break;
+            default:
+                break;
+        }
+        [self addChild:_selSpriteRange z:3];
+        _selSpriteRange.position = sprite.position;
+    }else{
+        [self removeChild:_selSpriteRange cleanup:YES];
+        _selSpriteRange = nil;
+    }
+   
+
+    
+}
+
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc

@@ -12,8 +12,13 @@
 #import "DataModel.h"
 #import "Creep.h"
 
+@protocol MyTowerDelegate <NSObject>
 
-@interface Tower : CCSprite {
+- (void)touchMyTower:(CCSprite*)sprite;
+
+@end
+
+@interface Tower : CCSprite <CCTargetedTouchDelegate>{
     int experience;
     int lvl;
     
@@ -38,6 +43,8 @@
 	CCSprite *_nextProjectile;
     
     BaseAttributes *baseAttributes;
+    
+    id <MyTowerDelegate> delegate;
 }
 
 @property (nonatomic, assign) int experience;
@@ -58,6 +65,8 @@
 
 @property (nonatomic, retain) CCSprite * nextProjectile;
 @property (nonatomic, retain) Creep * target;
+
+@property (nonatomic, assign) id<MyTowerDelegate> delegate;
 
 - (Creep *)getClosestTarget;
 
