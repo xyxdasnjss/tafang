@@ -383,14 +383,14 @@ bool reset;
         
         
         
-        DLog(@"target.position:%f,%f",pos.x,pos.y);
-        DLog(@"towerLoc:%f,%f",towerLoc.x,towerLoc.y);
-        DLog(@"target.position:%f,%f",target.position.x,target.position.y);
+//        DLog(@"target.position:%f,%f",pos.x,pos.y);
+//        DLog(@"towerLoc:%f,%f",towerLoc.x,towerLoc.y);
+//        DLog(@"target.position:%f,%f",target.position.x,target.position.y);
         
         
 		[self addChild:target z:kZTower];
 		
-		target.tag = 1;
+		target.tag = towerTag;
 		[m._towers addObject:target];
 		
 	} else {
@@ -699,6 +699,7 @@ bool reset;
         }
         _selSpriteRange = [CCSprite spriteWithFile:@"Range.png"];
         
+        DLog(@"tag:%d",sprite.tag);
         switch (sprite.tag) {
             case 1:
                 _selSpriteRange.scale = (baseAttributes.baseMGRange/50);

@@ -49,7 +49,7 @@
 		
 	}
 	
-//    DLog("maxDistant:%f, self.range:%d, maxDistant - self.range:%f",maxDistant , self.range, maxDistant - self.range);
+    //    DLog("maxDistant:%f, self.range:%d, maxDistant - self.range:%f",maxDistant , self.range, maxDistant - self.range);
     
     
 	if (maxDistant < self.range)
@@ -58,10 +58,7 @@
 	return nil;
 }
 
-//-(void) registerWithTouchDispatcher
-//{
-//    [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
-//}
+
 
 - (void) onEnter
 {
@@ -81,7 +78,7 @@
 ////监听首次触发事件
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-//    DLog(@"11111监听首次触发事件");
+    
     BOOL isTouched = [self containsTouchLocation:touch];
     //return 的值，如果是真则表明用户触摸事件已经被处理，其他不会再去进行监听；如果为假，则会继续交给其他注册过的类型中进行处理；
     
@@ -101,7 +98,7 @@
 /** 判断touch点的位置是否在精灵上 */
 - (BOOL)containsTouchLocation:(UITouch *)touch
 {
-//    CCLOG(@"精灵触摸事件...........");
+    //    CCLOG(@"精灵触摸事件...........");
     CGPoint touchLocation = [touch locationInView: [touch view]];
 	touchLocation = [[CCDirector sharedDirector] convertToGL: touchLocation];
     CGPoint local = [self convertToNodeSpace:touchLocation];
@@ -110,9 +107,9 @@
     BOOL isTouched = CGRectContainsPoint( r, local );
     if( isTouched && _delegate != nil){
         [_delegate touchMyTower:self];
-//                CCLOG(@"**点中精灵YYYYYYYYYYYYYYYYYYYYY");
+        //                CCLOG(@"**点中精灵YYYYYYYYYYYYYYYYYYYYY");
     } else {
-//        CCLOG(@"****没有点中精灵NNNNNNNNNNNNNNNNNNNN");
+        //        CCLOG(@"****没有点中精灵NNNNNNNNNNNNNNNNNNNN");
         [_delegate touchMyTower:nil];
         
     }
@@ -140,6 +137,9 @@
         tower.damageMin = baseAttributes.baseMGDamage;
         tower.damageRandom = baseAttributes.baseMGDamageRandom;
         tower.range = baseAttributes.baseMGRange;
+        if (WINSCALE == 1) {
+            tower.range = tower.range * .5;
+        }
         [tower schedule:@selector(towerLogic:) interval:baseAttributes.baseMGFireRate];
         
 		tower.experience = 0;
@@ -157,7 +157,7 @@
         [tower schedule:@selector(checkTarget) interval:0.5];
         [tower schedule:@selector(checkExperience) interval:0.5];
         
-//        [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+        //        [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
         
     }
 	
@@ -169,7 +169,7 @@
 {
 	if ((self=[super init]) ) {
         
-//        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+        //        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
         
 	}
 	return self;
@@ -182,6 +182,8 @@
 
 -(void)checkTarget {
     double curDistance = ccpDistance(self.position, self.target.position);
+    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
+    
     if (self.target.hp <= 0 || curDistance > self.range){
         self.target = [self getClosestTarget];
     }
@@ -292,6 +294,9 @@
         tower.damageMin = baseAttributes.baseFDamage;
         tower.damageRandom = baseAttributes.baseFDamageRandom;
         tower.range = baseAttributes.baseFRange;
+        if (WINSCALE == 1) {
+            tower.range = tower.range * .5;
+        }
         [tower schedule:@selector(towerLogic:) interval:baseAttributes.baseFFireRate];
         tower.freezeDur = baseAttributes.baseFFreezeDur;
         tower.splashDist = 0;
@@ -334,6 +339,8 @@
 
 -(void)checkTarget {
     double curDistance = ccpDistance(self.position, self.target.position);
+    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
+    
     if (self.target.hp <= 0 || curDistance > self.range){
         self.target = [self getClosestTarget];
     }
@@ -441,6 +448,9 @@
         tower.damageMin = baseAttributes.baseCDamage;
         tower.damageRandom = baseAttributes.baseCDamageRandom;
         tower.range = baseAttributes.baseMGRange;
+        if (WINSCALE == 1) {
+            tower.range = tower.range * .5;
+        }
         [tower schedule:@selector(towerLogic:) interval:baseAttributes.baseCFireRate];
         tower.freezeDur = 0;
         tower.splashDist = baseAttributes.baseCSplashDist;
@@ -483,6 +493,8 @@
 
 -(void)checkTarget {
     double curDistance = ccpDistance(self.position, self.target.position);
+    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
+    
     if (self.target.hp <= 0 || curDistance > self.range){
         self.target = [self getClosestTarget];
     }
