@@ -19,21 +19,7 @@
 		13007EF0160872DB00F24708 /* EndGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 13007EEF160872DB00F24708 /* EndGame.m */; };
 		13007EF5160872F000F24708 /* MenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 13007EF2160872F000F24708 /* MenuLayer.m */; };
 		13007EF6160872F000F24708 /* PauseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 13007EF4160872F000F24708 /* PauseLayer.m */; };
-		13007EF816087CCD00F24708 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 13007EF716087CCD00F24708 /* Pause.png */; };
-		13007EFA16087E7F00F24708 /* MenuScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 13007EF916087E7F00F24708 /* MenuScreen.png */; };
-		13007EFC16087FAE00F24708 /* Buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 13007EFB16087FAE00F24708 /* Buy.png */; };
-		131B5062160B1E5C007B870F /* Cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 131B5061160B1E5C007B870F /* Cancel.png */; };
-		13D81E761608279D00BBF42B /* CannonProjectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6B1608279D00BBF42B /* CannonProjectile.png */; };
-		13D81E771608279D00BBF42B /* CannonTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6C1608279D00BBF42B /* CannonTurret.png */; };
-		13D81E781608279D00BBF42B /* CannonTurretUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6D1608279D00BBF42B /* CannonTurretUpgrade.png */; };
-		13D81E791608279D00BBF42B /* Enemy3.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6E1608279D00BBF42B /* Enemy3.png */; };
-		13D81E7A1608279D00BBF42B /* FreezeTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E6F1608279D00BBF42B /* FreezeTurret.png */; };
-		13D81E7B1608279D00BBF42B /* FreezeTurretUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E701608279D00BBF42B /* FreezeTurretUpgrade.png */; };
-		13D81E7C1608279D00BBF42B /* health_bar_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E711608279D00BBF42B /* health_bar_green.png */; };
-		13D81E7D1608279D00BBF42B /* health_bar_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E721608279D00BBF42B /* health_bar_red.png */; };
-		13D81E7E1608279D00BBF42B /* IceProjectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E731608279D00BBF42B /* IceProjectile.png */; };
-		13D81E7F1608279D00BBF42B /* MGTowerUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E741608279D00BBF42B /* MGTowerUpgrade.png */; };
-		13D81E801608279D00BBF42B /* TileMap1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 13D81E751608279D00BBF42B /* TileMap1.tmx */; };
+		139D794416104F770074004E /* TowerMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 139D794316104F770074004E /* TowerMenuLayer.m */; };
 		13DCF520160AC6D900A089D7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 13DCF51F160AC6D900A089D7 /* README.md */; };
 		13E77C151601ABD1006450BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C141601ABD1006450BE /* QuartzCore.framework */; };
 		13E77C171601ABD1006450BE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E77C161601ABD1006450BE /* OpenGLES.framework */; };
@@ -209,15 +195,30 @@
 		13E77E3C1601ABD4006450BE /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13E77E3B1601ABD4006450BE /* GLES-Render.mm */; };
 		13E77E3F1601ABD4006450BE /* PhysicsSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13E77E3E1601ABD4006450BE /* PhysicsSprite.mm */; };
 		13E77E411601ABD4006450BE /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E401601ABD4006450BE /* blocks.png */; };
-		13E77E771601B7F4006450BE /* Enemy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E6E1601B7F4006450BE /* Enemy1.png */; };
-		13E77E781601B7F4006450BE /* Enemy2.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E6F1601B7F4006450BE /* Enemy2.png */; };
-		13E77E791601B7F4006450BE /* hud.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E701601B7F4006450BE /* hud.png */; };
-		13E77E7A1601B7F4006450BE /* MachineGunTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E711601B7F4006450BE /* MachineGunTurret.png */; };
-		13E77E7B1601B7F4006450BE /* meta_tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E721601B7F4006450BE /* meta_tiles.png */; };
-		13E77E7C1601B7F4006450BE /* Projectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E731601B7F4006450BE /* Projectile.png */; };
-		13E77E7D1601B7F4006450BE /* Range.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E741601B7F4006450BE /* Range.png */; };
-		13E77E7E1601B7F4006450BE /* TileMap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E751601B7F4006450BE /* TileMap.tmx */; };
-		13E77E7F1601B7F4006450BE /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = 13E77E761601B7F4006450BE /* tmw_desert_spacing.png */; };
+		13FFFFC716102659006B1E84 /* Enemy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFAD16102659006B1E84 /* Enemy1.png */; };
+		13FFFFC816102659006B1E84 /* Enemy2.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFAE16102659006B1E84 /* Enemy2.png */; };
+		13FFFFC916102659006B1E84 /* Enemy3.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFAF16102659006B1E84 /* Enemy3.png */; };
+		13FFFFCA16102659006B1E84 /* Buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB116102659006B1E84 /* Buy.png */; };
+		13FFFFCB16102659006B1E84 /* Cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB216102659006B1E84 /* Cancel.png */; };
+		13FFFFCC16102659006B1E84 /* health_bar_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB316102659006B1E84 /* health_bar_green.png */; };
+		13FFFFCD16102659006B1E84 /* health_bar_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB416102659006B1E84 /* health_bar_red.png */; };
+		13FFFFCE16102659006B1E84 /* hud.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB516102659006B1E84 /* hud.png */; };
+		13FFFFCF16102659006B1E84 /* MenuScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB616102659006B1E84 /* MenuScreen.png */; };
+		13FFFFD016102659006B1E84 /* meta_tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB716102659006B1E84 /* meta_tiles.png */; };
+		13FFFFD116102659006B1E84 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB816102659006B1E84 /* Pause.png */; };
+		13FFFFD216102659006B1E84 /* Range.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFB916102659006B1E84 /* Range.png */; };
+		13FFFFD316102659006B1E84 /* TileMap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFBA16102659006B1E84 /* TileMap.tmx */; };
+		13FFFFD416102659006B1E84 /* TileMap1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFBB16102659006B1E84 /* TileMap1.tmx */; };
+		13FFFFD516102659006B1E84 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFBC16102659006B1E84 /* tmw_desert_spacing.png */; };
+		13FFFFD616102659006B1E84 /* CannonProjectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFBE16102659006B1E84 /* CannonProjectile.png */; };
+		13FFFFD716102659006B1E84 /* CannonTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFBF16102659006B1E84 /* CannonTurret.png */; };
+		13FFFFD816102659006B1E84 /* CannonTurretUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFC016102659006B1E84 /* CannonTurretUpgrade.png */; };
+		13FFFFD916102659006B1E84 /* FreezeTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFC116102659006B1E84 /* FreezeTurret.png */; };
+		13FFFFDA16102659006B1E84 /* FreezeTurretUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFC216102659006B1E84 /* FreezeTurretUpgrade.png */; };
+		13FFFFDB16102659006B1E84 /* IceProjectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFC316102659006B1E84 /* IceProjectile.png */; };
+		13FFFFDC16102659006B1E84 /* MachineGunTurret.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFC416102659006B1E84 /* MachineGunTurret.png */; };
+		13FFFFDD16102659006B1E84 /* MGTowerUpgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFC516102659006B1E84 /* MGTowerUpgrade.png */; };
+		13FFFFDE16102659006B1E84 /* Projectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13FFFFC616102659006B1E84 /* Projectile.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -246,21 +247,8 @@
 		13007EF2160872F000F24708 /* MenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuLayer.m; sourceTree = "<group>"; };
 		13007EF3160872F000F24708 /* PauseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseLayer.h; sourceTree = "<group>"; };
 		13007EF4160872F000F24708 /* PauseLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseLayer.m; sourceTree = "<group>"; };
-		13007EF716087CCD00F24708 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
-		13007EF916087E7F00F24708 /* MenuScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuScreen.png; sourceTree = "<group>"; };
-		13007EFB16087FAE00F24708 /* Buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Buy.png; sourceTree = "<group>"; };
-		131B5061160B1E5C007B870F /* Cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cancel.png; sourceTree = "<group>"; };
-		13D81E6B1608279D00BBF42B /* CannonProjectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonProjectile.png; sourceTree = "<group>"; };
-		13D81E6C1608279D00BBF42B /* CannonTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonTurret.png; sourceTree = "<group>"; };
-		13D81E6D1608279D00BBF42B /* CannonTurretUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonTurretUpgrade.png; sourceTree = "<group>"; };
-		13D81E6E1608279D00BBF42B /* Enemy3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy3.png; sourceTree = "<group>"; };
-		13D81E6F1608279D00BBF42B /* FreezeTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreezeTurret.png; sourceTree = "<group>"; };
-		13D81E701608279D00BBF42B /* FreezeTurretUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreezeTurretUpgrade.png; sourceTree = "<group>"; };
-		13D81E711608279D00BBF42B /* health_bar_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = health_bar_green.png; sourceTree = "<group>"; };
-		13D81E721608279D00BBF42B /* health_bar_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = health_bar_red.png; sourceTree = "<group>"; };
-		13D81E731608279D00BBF42B /* IceProjectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IceProjectile.png; sourceTree = "<group>"; };
-		13D81E741608279D00BBF42B /* MGTowerUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MGTowerUpgrade.png; sourceTree = "<group>"; };
-		13D81E751608279D00BBF42B /* TileMap1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TileMap1.tmx; sourceTree = "<group>"; };
+		139D794216104F770074004E /* TowerMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerMenuLayer.h; sourceTree = "<group>"; };
+		139D794316104F770074004E /* TowerMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TowerMenuLayer.m; sourceTree = "<group>"; };
 		13DCF51F160AC6D900A089D7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		13E77C101601ABD1006450BE /* TowerDefence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E77C141601ABD1006450BE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -623,15 +611,30 @@
 		13E77E3D1601ABD4006450BE /* PhysicsSprite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsSprite.h; sourceTree = "<group>"; };
 		13E77E3E1601ABD4006450BE /* PhysicsSprite.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PhysicsSprite.mm; sourceTree = "<group>"; };
 		13E77E401601ABD4006450BE /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
-		13E77E6E1601B7F4006450BE /* Enemy1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy1.png; sourceTree = "<group>"; };
-		13E77E6F1601B7F4006450BE /* Enemy2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy2.png; sourceTree = "<group>"; };
-		13E77E701601B7F4006450BE /* hud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hud.png; sourceTree = "<group>"; };
-		13E77E711601B7F4006450BE /* MachineGunTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MachineGunTurret.png; sourceTree = "<group>"; };
-		13E77E721601B7F4006450BE /* meta_tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meta_tiles.png; sourceTree = "<group>"; };
-		13E77E731601B7F4006450BE /* Projectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projectile.png; sourceTree = "<group>"; };
-		13E77E741601B7F4006450BE /* Range.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Range.png; sourceTree = "<group>"; };
-		13E77E751601B7F4006450BE /* TileMap.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TileMap.tmx; sourceTree = "<group>"; };
-		13E77E761601B7F4006450BE /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
+		13FFFFAD16102659006B1E84 /* Enemy1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy1.png; sourceTree = "<group>"; };
+		13FFFFAE16102659006B1E84 /* Enemy2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy2.png; sourceTree = "<group>"; };
+		13FFFFAF16102659006B1E84 /* Enemy3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy3.png; sourceTree = "<group>"; };
+		13FFFFB116102659006B1E84 /* Buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Buy.png; sourceTree = "<group>"; };
+		13FFFFB216102659006B1E84 /* Cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cancel.png; sourceTree = "<group>"; };
+		13FFFFB316102659006B1E84 /* health_bar_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = health_bar_green.png; sourceTree = "<group>"; };
+		13FFFFB416102659006B1E84 /* health_bar_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = health_bar_red.png; sourceTree = "<group>"; };
+		13FFFFB516102659006B1E84 /* hud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hud.png; sourceTree = "<group>"; };
+		13FFFFB616102659006B1E84 /* MenuScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuScreen.png; sourceTree = "<group>"; };
+		13FFFFB716102659006B1E84 /* meta_tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meta_tiles.png; sourceTree = "<group>"; };
+		13FFFFB816102659006B1E84 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
+		13FFFFB916102659006B1E84 /* Range.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Range.png; sourceTree = "<group>"; };
+		13FFFFBA16102659006B1E84 /* TileMap.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TileMap.tmx; sourceTree = "<group>"; };
+		13FFFFBB16102659006B1E84 /* TileMap1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TileMap1.tmx; sourceTree = "<group>"; };
+		13FFFFBC16102659006B1E84 /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
+		13FFFFBE16102659006B1E84 /* CannonProjectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonProjectile.png; sourceTree = "<group>"; };
+		13FFFFBF16102659006B1E84 /* CannonTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonTurret.png; sourceTree = "<group>"; };
+		13FFFFC016102659006B1E84 /* CannonTurretUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonTurretUpgrade.png; sourceTree = "<group>"; };
+		13FFFFC116102659006B1E84 /* FreezeTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreezeTurret.png; sourceTree = "<group>"; };
+		13FFFFC216102659006B1E84 /* FreezeTurretUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreezeTurretUpgrade.png; sourceTree = "<group>"; };
+		13FFFFC316102659006B1E84 /* IceProjectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IceProjectile.png; sourceTree = "<group>"; };
+		13FFFFC416102659006B1E84 /* MachineGunTurret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MachineGunTurret.png; sourceTree = "<group>"; };
+		13FFFFC516102659006B1E84 /* MGTowerUpgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MGTowerUpgrade.png; sourceTree = "<group>"; };
+		13FFFFC616102659006B1E84 /* Projectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projectile.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -682,6 +685,8 @@
 				13007EB4160870C900F24708 /* Wave.m */,
 				13007EB5160870C900F24708 /* WayPoint.h */,
 				13007EB6160870C900F24708 /* WayPoint.m */,
+				139D794216104F770074004E /* TowerMenuLayer.h */,
+				139D794316104F770074004E /* TowerMenuLayer.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -744,7 +749,7 @@
 		13E77C271601ABD2006450BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				13E77E6C1601B7B0006450BE /* images */,
+				13FFFFAB16102659006B1E84 /* images */,
 				13E77C281601ABD2006450BE /* Default.png */,
 				13E77C2A1601ABD2006450BE /* Default-Landscape~ipad.png */,
 				13E77C2C1601ABD2006450BE /* fps_images.png */,
@@ -1264,36 +1269,60 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13E77E6C1601B7B0006450BE /* images */ = {
+		13FFFFAB16102659006B1E84 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				131B5061160B1E5C007B870F /* Cancel.png */,
-				13007EFB16087FAE00F24708 /* Buy.png */,
-				13007EF916087E7F00F24708 /* MenuScreen.png */,
-				13007EF716087CCD00F24708 /* Pause.png */,
-				13D81E6B1608279D00BBF42B /* CannonProjectile.png */,
-				13D81E6C1608279D00BBF42B /* CannonTurret.png */,
-				13D81E6D1608279D00BBF42B /* CannonTurretUpgrade.png */,
-				13D81E6E1608279D00BBF42B /* Enemy3.png */,
-				13D81E6F1608279D00BBF42B /* FreezeTurret.png */,
-				13D81E701608279D00BBF42B /* FreezeTurretUpgrade.png */,
-				13D81E711608279D00BBF42B /* health_bar_green.png */,
-				13D81E721608279D00BBF42B /* health_bar_red.png */,
-				13D81E731608279D00BBF42B /* IceProjectile.png */,
-				13D81E741608279D00BBF42B /* MGTowerUpgrade.png */,
-				13D81E751608279D00BBF42B /* TileMap1.tmx */,
-				13E77E6E1601B7F4006450BE /* Enemy1.png */,
-				13E77E6F1601B7F4006450BE /* Enemy2.png */,
-				13E77E701601B7F4006450BE /* hud.png */,
-				13E77E711601B7F4006450BE /* MachineGunTurret.png */,
-				13E77E721601B7F4006450BE /* meta_tiles.png */,
-				13E77E731601B7F4006450BE /* Projectile.png */,
-				13E77E741601B7F4006450BE /* Range.png */,
-				13E77E751601B7F4006450BE /* TileMap.tmx */,
-				13E77E761601B7F4006450BE /* tmw_desert_spacing.png */,
+				13FFFFAC16102659006B1E84 /* CreepImages */,
+				13FFFFB016102659006B1E84 /* GUIIcons */,
+				13FFFFBA16102659006B1E84 /* TileMap.tmx */,
+				13FFFFBB16102659006B1E84 /* TileMap1.tmx */,
+				13FFFFBC16102659006B1E84 /* tmw_desert_spacing.png */,
+				13FFFFBD16102659006B1E84 /* TowerImages */,
 			);
 			name = images;
 			path = Resources/images;
+			sourceTree = "<group>";
+		};
+		13FFFFAC16102659006B1E84 /* CreepImages */ = {
+			isa = PBXGroup;
+			children = (
+				13FFFFAD16102659006B1E84 /* Enemy1.png */,
+				13FFFFAE16102659006B1E84 /* Enemy2.png */,
+				13FFFFAF16102659006B1E84 /* Enemy3.png */,
+			);
+			path = CreepImages;
+			sourceTree = "<group>";
+		};
+		13FFFFB016102659006B1E84 /* GUIIcons */ = {
+			isa = PBXGroup;
+			children = (
+				13FFFFB116102659006B1E84 /* Buy.png */,
+				13FFFFB216102659006B1E84 /* Cancel.png */,
+				13FFFFB316102659006B1E84 /* health_bar_green.png */,
+				13FFFFB416102659006B1E84 /* health_bar_red.png */,
+				13FFFFB516102659006B1E84 /* hud.png */,
+				13FFFFB616102659006B1E84 /* MenuScreen.png */,
+				13FFFFB716102659006B1E84 /* meta_tiles.png */,
+				13FFFFB816102659006B1E84 /* Pause.png */,
+				13FFFFB916102659006B1E84 /* Range.png */,
+			);
+			path = GUIIcons;
+			sourceTree = "<group>";
+		};
+		13FFFFBD16102659006B1E84 /* TowerImages */ = {
+			isa = PBXGroup;
+			children = (
+				13FFFFBE16102659006B1E84 /* CannonProjectile.png */,
+				13FFFFBF16102659006B1E84 /* CannonTurret.png */,
+				13FFFFC016102659006B1E84 /* CannonTurretUpgrade.png */,
+				13FFFFC116102659006B1E84 /* FreezeTurret.png */,
+				13FFFFC216102659006B1E84 /* FreezeTurretUpgrade.png */,
+				13FFFFC316102659006B1E84 /* IceProjectile.png */,
+				13FFFFC416102659006B1E84 /* MachineGunTurret.png */,
+				13FFFFC516102659006B1E84 /* MGTowerUpgrade.png */,
+				13FFFFC616102659006B1E84 /* Projectile.png */,
+			);
+			path = TowerImages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1361,31 +1390,31 @@
 				13E77C401601ABD2006450BE /* iTunesArtwork in Resources */,
 				13E77D7E1601ABD3006450BE /* ChangeLog in Resources */,
 				13E77E411601ABD4006450BE /* blocks.png in Resources */,
-				13E77E771601B7F4006450BE /* Enemy1.png in Resources */,
-				13E77E781601B7F4006450BE /* Enemy2.png in Resources */,
-				13E77E791601B7F4006450BE /* hud.png in Resources */,
-				13E77E7A1601B7F4006450BE /* MachineGunTurret.png in Resources */,
-				13E77E7B1601B7F4006450BE /* meta_tiles.png in Resources */,
-				13E77E7C1601B7F4006450BE /* Projectile.png in Resources */,
-				13E77E7D1601B7F4006450BE /* Range.png in Resources */,
-				13E77E7E1601B7F4006450BE /* TileMap.tmx in Resources */,
-				13E77E7F1601B7F4006450BE /* tmw_desert_spacing.png in Resources */,
-				13D81E761608279D00BBF42B /* CannonProjectile.png in Resources */,
-				13D81E771608279D00BBF42B /* CannonTurret.png in Resources */,
-				13D81E781608279D00BBF42B /* CannonTurretUpgrade.png in Resources */,
-				13D81E791608279D00BBF42B /* Enemy3.png in Resources */,
-				13D81E7A1608279D00BBF42B /* FreezeTurret.png in Resources */,
-				13D81E7B1608279D00BBF42B /* FreezeTurretUpgrade.png in Resources */,
-				13D81E7C1608279D00BBF42B /* health_bar_green.png in Resources */,
-				13D81E7D1608279D00BBF42B /* health_bar_red.png in Resources */,
-				13D81E7E1608279D00BBF42B /* IceProjectile.png in Resources */,
-				13D81E7F1608279D00BBF42B /* MGTowerUpgrade.png in Resources */,
-				13D81E801608279D00BBF42B /* TileMap1.tmx in Resources */,
-				13007EF816087CCD00F24708 /* Pause.png in Resources */,
-				13007EFA16087E7F00F24708 /* MenuScreen.png in Resources */,
-				13007EFC16087FAE00F24708 /* Buy.png in Resources */,
 				13DCF520160AC6D900A089D7 /* README.md in Resources */,
-				131B5062160B1E5C007B870F /* Cancel.png in Resources */,
+				13FFFFC716102659006B1E84 /* Enemy1.png in Resources */,
+				13FFFFC816102659006B1E84 /* Enemy2.png in Resources */,
+				13FFFFC916102659006B1E84 /* Enemy3.png in Resources */,
+				13FFFFCA16102659006B1E84 /* Buy.png in Resources */,
+				13FFFFCB16102659006B1E84 /* Cancel.png in Resources */,
+				13FFFFCC16102659006B1E84 /* health_bar_green.png in Resources */,
+				13FFFFCD16102659006B1E84 /* health_bar_red.png in Resources */,
+				13FFFFCE16102659006B1E84 /* hud.png in Resources */,
+				13FFFFCF16102659006B1E84 /* MenuScreen.png in Resources */,
+				13FFFFD016102659006B1E84 /* meta_tiles.png in Resources */,
+				13FFFFD116102659006B1E84 /* Pause.png in Resources */,
+				13FFFFD216102659006B1E84 /* Range.png in Resources */,
+				13FFFFD316102659006B1E84 /* TileMap.tmx in Resources */,
+				13FFFFD416102659006B1E84 /* TileMap1.tmx in Resources */,
+				13FFFFD516102659006B1E84 /* tmw_desert_spacing.png in Resources */,
+				13FFFFD616102659006B1E84 /* CannonProjectile.png in Resources */,
+				13FFFFD716102659006B1E84 /* CannonTurret.png in Resources */,
+				13FFFFD816102659006B1E84 /* CannonTurretUpgrade.png in Resources */,
+				13FFFFD916102659006B1E84 /* FreezeTurret.png in Resources */,
+				13FFFFDA16102659006B1E84 /* FreezeTurretUpgrade.png in Resources */,
+				13FFFFDB16102659006B1E84 /* IceProjectile.png in Resources */,
+				13FFFFDC16102659006B1E84 /* MachineGunTurret.png in Resources */,
+				13FFFFDD16102659006B1E84 /* MGTowerUpgrade.png in Resources */,
+				13FFFFDE16102659006B1E84 /* Projectile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1559,6 +1588,7 @@
 				13007EF0160872DB00F24708 /* EndGame.m in Sources */,
 				13007EF5160872F000F24708 /* MenuLayer.m in Sources */,
 				13007EF6160872F000F24708 /* PauseLayer.m in Sources */,
+				139D794416104F770074004E /* TowerMenuLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

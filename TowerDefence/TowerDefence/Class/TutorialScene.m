@@ -9,7 +9,7 @@
 #import "GameHUD.h"
 
 #import "DataModel.h"
-
+#import "TowerMenuLayer.h"
 // Tutorial implementation
 @implementation Tutorial
 
@@ -20,6 +20,7 @@ bool reset;
 
 @synthesize currentLevel = _currentLevel;
 @synthesize selSpriteRange = _selSpriteRange;
+@synthesize towerMenuLayer = _towerMenuLayer;
 +(id) scene
 {
 	// 'scene' is an autorelease object.
@@ -692,33 +693,46 @@ bool reset;
 
 - (void)touchMyTower:(CCSprite *)sprite
 {
-    if (sprite != nil) {
-        if (_selSpriteRange != nil) {
-            [self removeChild:_selSpriteRange cleanup:YES];
-            _selSpriteRange = nil;
-        }
-        _selSpriteRange = [CCSprite spriteWithFile:@"Range.png"];
-        
-        DLog(@"tag:%d",sprite.tag);
-        switch (sprite.tag) {
-            case 1:
-                _selSpriteRange.scale = (baseAttributes.baseMGRange/50);
-                break;
-            case 2:
-                _selSpriteRange.scale = (baseAttributes.baseFRange/50);
-                break;
-            case 3:
-                _selSpriteRange.scale = (baseAttributes.baseCRange/50);
-                break;
-            default:
-                break;
-        }
-        [self addChild:_selSpriteRange z:3];
-        _selSpriteRange.position = sprite.position;
+//    if (sprite != nil) {
+//        if (_selSpriteRange != nil) {
+//            [self removeChild:_selSpriteRange cleanup:YES];
+//            _selSpriteRange = nil;
+//        }
+//        _selSpriteRange = [CCSprite spriteWithFile:@"Range.png"];
+//        
+//        DLog(@"tag:%d",sprite.tag);
+//        switch (sprite.tag) {
+//            case 1:
+//                _selSpriteRange.scale = (baseAttributes.baseMGRange/50);
+//                break;
+//            case 2:
+//                _selSpriteRange.scale = (baseAttributes.baseFRange/50);
+//                break;
+//            case 3:
+//                _selSpriteRange.scale = (baseAttributes.baseCRange/50);
+//                break;
+//            default:
+//                break;
+//        }
+//        [self addChild:_selSpriteRange z:3];
+//        _selSpriteRange.position = sprite.position;
+//    }else{
+//        [self removeChild:_selSpriteRange cleanup:YES];
+//        _selSpriteRange = nil;
+//    }
+    
+    if (sprite == nil) {
+        [self removeChild:_towerMenuLayer cleanup:YES];
     }else{
-        [self removeChild:_selSpriteRange cleanup:YES];
-        _selSpriteRange = nil;
+        [self removeChild:_towerMenuLayer cleanup:YES];
+        _towerMenuLayer = [[TowerMenuLayer alloc ] init:sprite];
+        [self addChild:_towerMenuLayer];
     }
+    
+//    TowerMenuLayer *menu = [ init:sprite];
+    
+    
+//    [self addChild:menu];
    
 
     

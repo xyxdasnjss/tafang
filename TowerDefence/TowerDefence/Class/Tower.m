@@ -182,7 +182,7 @@
 
 -(void)checkTarget {
     double curDistance = ccpDistance(self.position, self.target.position);
-    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
+//    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
     
     if (self.target.hp <= 0 || curDistance > self.range){
         self.target = [self getClosestTarget];
@@ -339,7 +339,7 @@
 
 -(void)checkTarget {
     double curDistance = ccpDistance(self.position, self.target.position);
-    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
+//    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
     
     if (self.target.hp <= 0 || curDistance > self.range){
         self.target = [self getClosestTarget];
@@ -493,7 +493,7 @@
 
 -(void)checkTarget {
     double curDistance = ccpDistance(self.position, self.target.position);
-    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
+//    DLog(@"curDistance:%f,range:%d",curDistance,self.range);
     
     if (self.target.hp <= 0 || curDistance > self.range){
         self.target = [self getClosestTarget];

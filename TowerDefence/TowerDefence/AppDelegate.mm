@@ -17,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    application.applicationIconBadgeNumber = 0;//应用程序右上角的数字=0（消失）
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];//取消所有的通知
+    
+    
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
@@ -118,12 +123,32 @@
 // call got rejected
 -(void) applicationDidBecomeActive:(UIApplication *)application
 {
+    application.applicationIconBadgeNumber = 0;//应用程序右上角的数字=0（消失）
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];//取消所有的通知
+    
 	if( [navController_ visibleViewController] == director_ )
 		[director_ resume];
 }
 
 -(void) applicationDidEnterBackground:(UIApplication*)application
 {
+    //------通知；
+    UILocalNotification *notification=[[UILocalNotification alloc] init];
+    if (notification!=nil) {//判断系统是否支持本地通知
+        //        notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:kCFCalendarUnitDay];//本次开启立即执行的周期
+        
+        NSDate *now=[NSDate new];
+        notification.fireDate=[now dateByAddingTimeInterval:60 * 60];//60 * 60秒后通知
+        notification.repeatInterval=kCFCalendarUnitWeekday;//循环通知的周期 //一周一次
+        notification.timeZone=[NSTimeZone defaultTimeZone];
+        notification.alertBody=@"亲，本地推送测试哦~~";//弹出的提示信息
+        notification.applicationIconBadgeNumber=1; //应用程序的右上角小数字
+        notification.soundName= UILocalNotificationDefaultSoundName;//本地化通知的声音
+        notification.alertAction = NSLocalizedString(@"TowerDefence", @"TowerDefence");  //弹出的提示框按钮
+        [[UIApplication sharedApplication]   scheduleLocalNotification:notification];
+    }
+
+    
 	if( [navController_ visibleViewController] == director_ )
 		[director_ stopAnimation];
 }
@@ -153,7 +178,10 @@
 }
 
 
-
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    //点击提示框的打开
+    application.applicationIconBadgeNumber = 0;
+}
 
 
 - (void) dealloc

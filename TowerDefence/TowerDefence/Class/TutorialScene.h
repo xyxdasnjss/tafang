@@ -17,6 +17,7 @@
 #import "GameHUD.h"
 #import "EndGame.h"
 #import "MenuLayer.h"
+#import "TowerMenuLayer.h"
 
 
 #define kZTutorial          1
@@ -37,6 +38,7 @@
     BaseAttributes * baseAttributes;
     
     CCSprite * _selSpriteRange;//点击地图上的塔，显示的范围
+    TowerMenuLayer *_towerMenuLayer;
 }
 
 @property (nonatomic, retain) CCTMXTiledMap *tileMap;
@@ -44,6 +46,7 @@
 
 @property (nonatomic, assign) int currentLevel;
 @property (nonatomic, retain) CCSprite *selSpriteRange;
+@property (nonatomic, retain) TowerMenuLayer *towerMenuLayer;
 
 + (id) scene;
 - (void)addWaypoint;
