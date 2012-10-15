@@ -19,17 +19,7 @@
 
 static TowerMenuLayer *_towerMenuLayer = nil;
 
-//+ (TowerMenuLayer *)sharedMenu:(CCSprite*)sprite
-//{
-//	@synchronized([TowerMenuLayer class])
-//	{
-//		if (!_towerMenuLayer)
-//			[[self alloc] init:sprite];
-//		return _towerMenuLayer;
-//	}
-//	// to avoid compiler warning
-//	return nil;
-//}
+
 
 +(id)alloc
 {
@@ -90,6 +80,7 @@ static TowerMenuLayer *_towerMenuLayer = nil;
             _towerMenu = [CCMenu menuWithItems: _updateMenu, _sellMenu,itemAchievement, nil];
             
             _towerMenu.position = ccp((sprite.position.x/2 + 50), (sprite.position.y/2-22));
+//            _towerMenu.position = sprite.position;
 
             [_towerMenu alignItemsHorizontallyWithPadding:5.0f];
 

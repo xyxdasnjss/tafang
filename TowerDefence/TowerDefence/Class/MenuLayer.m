@@ -37,7 +37,9 @@
     [Tutorial resetGame];
     [self.parent removeChild:self cleanup:TRUE];
     [[CCDirector sharedDirector] resume];
-//    [[CCDirector sharedDirector ] replaceScene:[Tutorial scene]];
+
+
+
 }
 
 -(void) dealloc{

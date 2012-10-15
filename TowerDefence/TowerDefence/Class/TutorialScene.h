@@ -39,6 +39,8 @@
     
     CCSprite * _selSpriteRange;//点击地图上的塔，显示的范围
     TowerMenuLayer *_towerMenuLayer;
+    
+    CCParticleSystem * system;//粒子系统
 }
 
 @property (nonatomic, retain) CCTMXTiledMap *tileMap;

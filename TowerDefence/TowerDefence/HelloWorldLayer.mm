@@ -14,6 +14,8 @@
 
 #import "PhysicsSprite.h"
 #import "TutorialScene.h"
+#import "PickMapLayer.h"
+#import "AboutLayer.h"
 
 enum {
 	kTagParentNode = 1,
@@ -106,25 +108,23 @@ enum {
 	[CCMenuItemFont setFontSize:22];
 	
 //	// Reset Button
-//	CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
-//        
-//        
-//        
-//		[[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
-//	}];
+	CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"选择" block:^(id sender){
+        
+        
+        
+		[[CCDirector sharedDirector] replaceScene: [PickMapLayer scene]];
+	}];
 	
 	// Achievement Menu Item using blocks
 	CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"开始" block:^(id sender) {
         
         DataModel *m = [DataModel getModel];
-//        // Run the intro Scene
+        // Run the intro Scene
         CCScene *scene = [Tutorial scene];
         
         Tutorial *layer = (Tutorial *) [scene.children objectAtIndex:0];
         
         UIPanGestureRecognizer *gestureRecognizer = [[[UIPanGestureRecognizer alloc] initWithTarget:layer action:@selector(handlePanFrom:)] autorelease];
-//        AppController  *appDelegate = (AppController*)[[UIApplication sharedApplication] delegate];
-//        [appDelegate.navController.view addGestureRecognizer:gestureRecognizer];
         [[CCDirector sharedDirector].view addGestureRecognizer:gestureRecognizer];
         m._gestureRecognizer = gestureRecognizer;
         
@@ -133,13 +133,19 @@ enum {
 
 
 		
-		[[CCDirector sharedDirector] replaceScene:scene];
+//		[[CCDirector sharedDirector] replaceScene:scene];
+        [[CCDirector sharedDirector] replaceScene: [PickMapLayer scene]];
 		
 	}];
     
+    CCMenuItem *about = [CCMenuItemFont itemWithString:@"关于" block:^(id sender){
+        [[CCDirector sharedDirector] replaceScene:[AboutLayer scene]];
+        
+    }];
+    
 
 	
-	CCMenu *menu = [CCMenu menuWithItems:itemAchievement, nil];
+	CCMenu *menu = [CCMenu menuWithItems:itemAchievement,reset,about, nil];
 	
 	[menu alignItemsVertically];
 	

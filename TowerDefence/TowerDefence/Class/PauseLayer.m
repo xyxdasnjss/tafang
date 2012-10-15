@@ -7,6 +7,7 @@
 //
 
 #import "PauseLayer.h"
+#import "PickMapLayer.h"
 
 
 @implementation PauseLayer
@@ -77,9 +78,14 @@
 -(void) returnToMenu
 {
     //Return to menu
-    CCLayer *menuLayer =[[[MenuLayer alloc]init ]autorelease];
-    [self.parent addChild:menuLayer z:10];
-    [self.parent removeChild:self cleanup:TRUE];
+//    CCLayer *menuLayer =[[[MenuLayer alloc]init ]autorelease];
+//    [self.parent addChild:menuLayer z:10];
+    
+//    [[CCDirector sharedDirector] replaceScene:[PickMapLayer scene]];
+     [self.parent removeChild:self cleanup:TRUE];
+    [[CCDirector sharedDirector] runWithScene:[PickMapLayer scene]];
+   
+    
     
 }
 

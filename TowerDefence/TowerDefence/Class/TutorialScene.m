@@ -7,20 +7,20 @@
 //
 #import "TutorialScene.h"
 #import "GameHUD.h"
-
 #import "DataModel.h"
 #import "TowerMenuLayer.h"
+
 // Tutorial implementation
 @implementation Tutorial
 
 @synthesize tileMap = _tileMap;
 @synthesize background = _background;
-
-bool reset;
-
 @synthesize currentLevel = _currentLevel;
 @synthesize selSpriteRange = _selSpriteRange;
 @synthesize towerMenuLayer = _towerMenuLayer;
+
+bool reset;
+
 +(id) scene
 {
 	// 'scene' is an autorelease object.
@@ -47,6 +47,48 @@ bool reset;
 	return scene;
 }
 
+
+
+
+// on "init" you need to initialize your instance
+-(id) init {
+    if((self = [super init])) {
+        
+		self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"TileMap.tmx"];
+        self.background = [_tileMap layerNamed:@"Background"];
+		self.background.anchorPoint = ccp(0, 0);
+        
+        
+        DLog(@"TutorialScene init");
+        
+		[self addChild:_tileMap z:kZTileMap];
+        
+        
+		
+		[self addWaypoint];
+		[self addWaves];
+		
+		// Call game logic about every second
+        [self schedule:@selector(update:)];
+		[self schedule:@selector(gameLogic:) interval:0.2];
+        
+		
+		reset = NO;
+        
+		self.currentLevel = 0;
+		
+        
+		
+		gameHUD = [GameHUD sharedHUD];
+        baseAttributes = [BaseAttributes sharedAttributes];
+        
+        
+
+		
+    }
+    return self;
+}
+
 -(void)addWaves {
 	DataModel *m = [DataModel getModel];
 	
@@ -71,45 +113,6 @@ bool reset;
 	wave = nil;
 }
 
-
-// on "init" you need to initialize your instance
--(id) init {
-    if((self = [super init])) {
-		self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"TileMap.tmx"];
-        self.background = [_tileMap layerNamed:@"Background"];
-		self.background.anchorPoint = ccp(0, 0);
-        
-        
-        DLog(@"background:%f,%f",self.background.contentSize.width,self.background.contentSize.height);
-        
-		[self addChild:_tileMap z:kZTileMap];
-        
-        
-		
-		[self addWaypoint];
-		[self addWaves];
-		
-		// Call game logic about every second
-        [self schedule:@selector(update:)];
-		[self schedule:@selector(gameLogic:) interval:0.2];
-        
-		
-		reset = NO;
-        
-		self.currentLevel = 0;
-		
-        
-		
-		gameHUD = [GameHUD sharedHUD];
-        baseAttributes = [BaseAttributes sharedAttributes];
-        
-        
-        
-		
-    }
-    return self;
-}
-
 -(void) loadMenu{
     CCLayer *menuLayer =[[[MenuLayer alloc]init ]autorelease];
     [self.parent addChild:menuLayer z:10];
@@ -128,13 +131,15 @@ bool reset;
     NSMutableArray *towersToDelete = [[NSMutableArray alloc] init];
 	for (Tower *tower in m._towers) {
         [towersToDelete addObject:tower];
-        [self removeChild:tower cleanup:YES];
+//        [self removeChild:tower cleanup:YES];
     }
     // ？为什么remove两次？
     for (Tower *tower in towersToDelete) {
         [self removeChild:tower cleanup:YES];
     }
     [towersToDelete release];
+    
+    
     
     for (Creep *target in m._targets) {
         [m._targets removeObject:target];
@@ -162,7 +167,6 @@ bool reset;
     
     self.currentLevel = 0;
     
-    //    self.position = ccp(-258, -122);
     self.isTouchEnabled = YES;
     
 }
@@ -550,6 +554,7 @@ bool reset;
 										   target.contentSize.width,
 										   target.contentSize.height);
             
+            //碰撞 判断
 			if (CGRectIntersectsRect(projectileRect, targetRect)) {
                 
 				[projectilesToDelete addObject:projectile];
@@ -612,6 +617,14 @@ bool reset;
                     [gameHUD updateResources: rand()%(baseAttributes.baseMoneyDropped)];
                     [self removeChild:creep.healthBar cleanup:YES];
                     
+
+                    system = [CCParticleSystemQuad particleWithFile:@"test.plist"];
+                    [self addChild:system z:1 tag:1];
+                    system.positionType = kCCPositionTypeRelative;
+                    system.autoRemoveOnFinish = YES;//发射完粒子消失后从父节点移除
+                    system.position = creep.position;//粒子发射器位置
+                    system.duration = 1;
+                    
                 }
                 break;
                 
@@ -647,6 +660,10 @@ bool reset;
             [gameHUD newWaveApproaching];
         }
     }
+    
+    
+    
+
 }
 
 
@@ -660,6 +677,7 @@ bool reset;
     return retval;
 }
 
+//当地图大于屏幕时候，移动地图
 - (void)handlePanFrom:(UIPanGestureRecognizer *)recognizer {
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
@@ -691,35 +709,10 @@ bool reset;
 }
 
 
+//点击炮塔，显示菜单（升级，或卖掉）
 - (void)touchMyTower:(CCSprite *)sprite
 {
-//    if (sprite != nil) {
-//        if (_selSpriteRange != nil) {
-//            [self removeChild:_selSpriteRange cleanup:YES];
-//            _selSpriteRange = nil;
-//        }
-//        _selSpriteRange = [CCSprite spriteWithFile:@"Range.png"];
-//        
-//        DLog(@"tag:%d",sprite.tag);
-//        switch (sprite.tag) {
-//            case 1:
-//                _selSpriteRange.scale = (baseAttributes.baseMGRange/50);
-//                break;
-//            case 2:
-//                _selSpriteRange.scale = (baseAttributes.baseFRange/50);
-//                break;
-//            case 3:
-//                _selSpriteRange.scale = (baseAttributes.baseCRange/50);
-//                break;
-//            default:
-//                break;
-//        }
-//        [self addChild:_selSpriteRange z:3];
-//        _selSpriteRange.position = sprite.position;
-//    }else{
-//        [self removeChild:_selSpriteRange cleanup:YES];
-//        _selSpriteRange = nil;
-//    }
+
     
     if (sprite == nil) {
         [self removeChild:_towerMenuLayer cleanup:YES];
@@ -729,10 +722,7 @@ bool reset;
         [self addChild:_towerMenuLayer];
     }
     
-//    TowerMenuLayer *menu = [ init:sprite];
-    
-    
-//    [self addChild:menu];
+
    
 
     
