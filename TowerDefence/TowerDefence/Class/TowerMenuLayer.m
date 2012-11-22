@@ -28,6 +28,9 @@ static TowerMenuLayer *_towerMenuLayer = nil;
 //		NSAssert(_towerMenuLayer == nil, @"Attempted to allocate a second instance of a singleton.");
         if (_towerMenuLayer == nil) {
             _towerMenuLayer = [super alloc];
+//            DLog(@"alloc TowerMenuLayer new");
+        }else{
+//            DLog(@"alloc TowerMenuLayer old");//没有问题，
         }
 		
 		return _towerMenuLayer;

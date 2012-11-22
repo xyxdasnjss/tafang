@@ -83,7 +83,7 @@
     
 //    [[CCDirector sharedDirector] replaceScene:[PickMapLayer scene]];
      [self.parent removeChild:self cleanup:TRUE];
-    [[CCDirector sharedDirector] runWithScene:[PickMapLayer scene]];
+    [[CCDirector sharedDirector] replaceScene:[PickMapLayer scene]];
    
     
     
@@ -91,6 +91,7 @@
 
 -(void)dealloc
 {
+    DLog(@"dealloc      PauseLayer");
     [super dealloc];
 }
 

@@ -718,6 +718,7 @@ bool reset;
         [self removeChild:_towerMenuLayer cleanup:YES];
     }else{
         [self removeChild:_towerMenuLayer cleanup:YES];
+//        [_towerMenuLayer release];
         _towerMenuLayer = [[TowerMenuLayer alloc ] init:sprite];
         [self addChild:_towerMenuLayer];
     }
@@ -728,10 +729,19 @@ bool reset;
     
 }
 
+//- (void)onExit
+//{
+//    DLog(@"onExit Tutorial");
+//    while ([self retainCount] > 1) {
+//        [self release];
+//    }
+//}
+
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
 {
+    DLog(@"dealloc      TutorialScene.h");
 	[super dealloc];
 }
 
